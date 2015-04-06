@@ -1,9 +1,12 @@
 package view;
 
+import controller.Login;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginView extends JFrame {
 
@@ -29,12 +32,11 @@ public class LoginView extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Log the user in, idk how to register a user tho
-                /*try{
-
-                } catch (){
-
-                }*/
+                try {
+                    Login login = new Login("Gerard");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         panel.add(button);
