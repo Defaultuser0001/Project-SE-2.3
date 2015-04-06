@@ -19,21 +19,18 @@ public class LoginView extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3,1));
 
-        JLabel usernameLabel = new JLabel("Username:");
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel usernameLabel = new JLabel("username");
 
         panel.add(usernameLabel);
-        JTextField textField = new JTextField("Username");
-        //textField.setPreferredSize(new Dimension(200,100));
-
+        final JTextField textField = new JTextField("Username");
         panel.add(textField);
 
-        JButton button = new JButton("Log me in!");
+        JButton button = new JButton("log_in");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Login login = new Login("Gerard");
+                    new Login(textField.getText());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
