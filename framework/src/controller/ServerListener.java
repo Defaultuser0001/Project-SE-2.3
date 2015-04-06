@@ -1,6 +1,6 @@
 package controller;
 
-import model.ServerConnection;
+import tools.ServerConnection;
 
 public class ServerListener {
 

@@ -1,7 +1,7 @@
 package controller;
 
 import view.LoginView;
-import model.ServerConnection;
+import tools.ServerConnection;
 
 public class Login {
 
