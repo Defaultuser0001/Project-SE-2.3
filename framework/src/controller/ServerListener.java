@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.UsernameAlreadyExistsException;
 import tools.ServerConnection;
 
 import java.io.BufferedReader;
@@ -28,8 +29,13 @@ public class ServerListener implements Runnable{
         try {
             while((reader = in.readLine()) != null || true){
                 System.out.println(reader);
+                if(reader == "ERR Duplicate name exists"){
+                    throw new UsernameAlreadyExistsException("This username is already in use!");
+                }
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UsernameAlreadyExistsException e) {
             e.printStackTrace();
         }
     }
