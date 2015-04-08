@@ -10,12 +10,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Login extends JPanel implements ActionListener{
 
     private ServerConnection connection;
     private LoginView view;
     private String username;
+    private Lock lock = new ReentrantLock();
 
     public Login(String username, ServerConnection connection, LoginView view) throws IOException {
         this.username = username;
@@ -30,15 +33,17 @@ public class Login extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try{
-            connection.sendCommand("login " + this.username);
-            if(connection.isLoginSuccess()){
-                System.out.println("Login success");
-                view.dispose();
-                new ChooseGameView();
+        if (e.getActionCommand().equals("log_in")) {
+            try {
+                connection.sendCommand("login " + this.username);
+                if (connection.isLoginSuccess()) {
+                    System.out.println("Login success");
+                    view.dispose();
+                    new ChooseGameView();
+                }
+            } catch (UsernameAlreadyExistsException e1) {
+                e1.printStackTrace();
             }
-        } catch (UsernameAlreadyExistsException e1){
-            e1.printStackTrace();
         }
     }
 }

@@ -7,8 +7,10 @@ import model.Stats;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class ServerConnection {
+public class ServerConnection{
 
 	private Stats stats;
     private PrintWriter out;
@@ -54,4 +56,5 @@ public class ServerConnection {
             throw new UsernameAlreadyExistsException("Username already exists!");
         }
     }
+
 }

@@ -26,16 +26,15 @@ public class LoginView extends JFrame {
         panel.setLayout(new GridLayout(3, 1));
 
         JLabel usernameLabel = new JLabel("username");
-
         panel.add(usernameLabel);
         final JTextField textField = new JTextField("Username");
         panel.add(textField);
         panel.add(new Login(textField.getText(), connection, this));
-
         this.setSize(new Dimension(500, 300));
         this.add(panel);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.pack();
 
     }
 
