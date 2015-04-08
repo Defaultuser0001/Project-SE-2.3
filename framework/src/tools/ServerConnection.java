@@ -1,9 +1,9 @@
 package tools;
 
 
+import exceptions.UsernameAlreadyExistsException;
 import model.Stats;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -13,6 +13,8 @@ public class ServerConnection {
 	private Stats stats;
     private PrintWriter out;
     private Socket socket;
+    private String lastCommand = "";
+    private boolean loginSuccess = false;
 
     public ServerConnection() {
         try {
@@ -23,10 +25,12 @@ public class ServerConnection {
         }
     }
 
-    public void sendCommand(String msg){
+    public void sendCommand(String msg) throws UsernameAlreadyExistsException{
         try{
             out.write(msg+"\n");
             out.flush();
+            String arr[] = msg.split(" ", 2);
+            lastCommand = arr[0];
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -36,5 +40,18 @@ public class ServerConnection {
         return socket;
     }
 
-	
+    public String getLastCommand() {
+        return lastCommand;
+    }
+
+    public boolean isLoginSuccess(){
+        return loginSuccess;
+    }
+
+    public void setLoginSuccess(boolean loginSuccess) throws UsernameAlreadyExistsException{
+        this.loginSuccess = loginSuccess;
+        if(this.loginSuccess == false){
+            throw new UsernameAlreadyExistsException("Username already exists!");
+        }
+    }
 }

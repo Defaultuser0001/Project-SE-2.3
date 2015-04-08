@@ -3,6 +3,7 @@ package controller;
 import exceptions.UsernameAlreadyExistsException;
 import tools.ServerConnection;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +16,6 @@ public class ServerListener implements Runnable{
     public ServerListener(ServerConnection connection){
         this.connection = connection;
         try {
-            System.out.println("Creating new buffered reader");
             in = new BufferedReader(new InputStreamReader(connection.getSocket().getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,13 +24,15 @@ public class ServerListener implements Runnable{
 
     @Override
     public void run() {
-        String reader;
-        System.out.println("Created thread");
+        String reader, lastLine;
         try {
-            while((reader = in.readLine()) != null || true){
+            while((reader = in.readLine()) != null){
                 System.out.println(reader);
-                if(reader == "ERR Duplicate name exists"){
-                    throw new UsernameAlreadyExistsException("This username is already in use!");
+                lastLine = reader;
+                if(connection.getLastCommand().equals("login") && lastLine.equals("OK")){
+                    connection.setLoginSuccess(true);
+                } else if(connection.getLastCommand().equals("login") && lastLine.equals("ERR Duplicate name exists")) {
+                    connection.setLoginSuccess(false);
                 }
             }
         } catch (IOException e) {
