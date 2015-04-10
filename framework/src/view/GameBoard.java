@@ -5,19 +5,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public abstract class GameBoard extends JPanel{
 
-    private String gameMode;
-    private JButton[][] boardTiles;
+    protected String gameMode;
+    protected JButton[][] boardTiles;
+    private LinkedList<ActionListener> listeners = new LinkedList<ActionListener>();
 
-    public GameBoard(int x, int y, String gameMode, ActionListener listener){
-        this.gameMode = gameMode;
-        setBoardTiles();
-        this.setLayout(new GridLayout(x,y));
-        validate();
+    public GameBoard(ActionListener listener){
+    	addActionListener(listener);
     }
     
     protected abstract void setBoardTiles();
+    
+    public void addActionListener(ActionListener listener){
+    	listeners.add(listener);
+    }
+    
+    protected void processAction() {
+    	for (ActionListener listener : listeners){
+    		listener.notify();
+    	}
+    }
 
 }
