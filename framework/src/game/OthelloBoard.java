@@ -1,7 +1,10 @@
 package game;
+
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,8 +12,10 @@ import javax.swing.JButton;
 import view.GameBoard;
 
 
+
 public class OthelloBoard extends GameBoard{
 
+	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
 	public OthelloBoard(ActionListener listener) {
 		super(listener);
@@ -20,32 +25,52 @@ public class OthelloBoard extends GameBoard{
 
 	@Override
 	protected void setBoardTiles() {
-		for (int i = 0; i < 8; i++){
-			for (int j = 0; j < 8; j++){
-				Tile tile = new Tile(i,j);
-				if ((i == 3 && j == 3) || (i == 4 && j == 4)) {
-					tile.setWhite();
-				}if ((i == 3 && j == 4) || (i == 4 && j == 3)) {
-					tile.setBlack();
-				}
-				add(tile);
+		for (int i = 0; i < 64; i++){
+			Tile tile = new Tile(i);
+			if (i == 27|| i == 36) {
+				tile.setWhite();
+			}if (i == 28 || i == 35) {
+				tile.setBlack();
 			}
+			tile.addActionListener(this);
+			tiles.add(tile);
+			add(tile);
+			
 		}
 	}
 
-	
+	@Override
+	protected void processAction(int move) {
+		for(ActionListener listener : listeners){
+			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Integer.toString(move)));
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Tile tile = (Tile) e.getSource();
+		
+		processAction(tile.getMove());
+	}
+
+	public void makeMove(int player, int move) {
+		if (player == PLAYER1){
+			tiles.get(move).setWhite();
+		} else {
+			tiles.get(move).setBlack();
+		}
+	}
+
 	private class Tile extends JButton{
 
 		private ImageIcon white = new ImageIcon("./res/Othello/Othello_white.png");
 		private ImageIcon black = new ImageIcon("./res/Othello/Othello_black.png");
 		
-		private int x;
-		private int y;
+		private int move;
 		
-		public Tile(int x, int y) {
+		public Tile(int move) {
 			super();
-			this.x = x;
-			this.y = y;
+			this.move = move;
 			setBackground(new Color(0,155,0));
 		}
 		
@@ -57,6 +82,10 @@ public class OthelloBoard extends GameBoard{
 			setIcon(black);
 		}
 		
+		public int getMove(){
+			return move;
+		}
+		
 	}
-	
+
 }

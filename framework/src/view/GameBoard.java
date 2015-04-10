@@ -1,17 +1,22 @@
 package view;
 
 
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public abstract class GameBoard extends JPanel{
+public abstract class GameBoard extends JPanel implements ActionListener{
 
+	protected final static int PLAYER1 = 1;
+	protected final static int PLAYER2 = 2;
+	
     protected String gameMode;
     protected JButton[][] boardTiles;
-    private LinkedList<ActionListener> listeners = new LinkedList<ActionListener>();
+    protected LinkedList<ActionListener> listeners = new LinkedList<ActionListener>();
 
     public GameBoard(ActionListener listener){
     	addActionListener(listener);
@@ -23,10 +28,8 @@ public abstract class GameBoard extends JPanel{
     	listeners.add(listener);
     }
     
-    protected void processAction() {
-    	for (ActionListener listener : listeners){
-    		listener.notify();
-    	}
-    }
+    protected abstract void processAction(int move);
+    
+    public abstract void makeMove(int player, int move);
 
 }
