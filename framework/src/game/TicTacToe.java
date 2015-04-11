@@ -1,14 +1,14 @@
 package game;
 
+import model.Player;
+
 /**
  * Created by Gerard on 4/7/2015.
  */
 public class TicTacToe extends AbstractGame{
 
-	@Override
-	void addPlayer() {
-		// TODO Auto-generated method stub
-		
+	public TicTacToe(Player p1, Player p2) {
+		super(p1, p2);
 	}
 
 	@Override

@@ -3,14 +3,28 @@ package model;
 public class Stats {
 	private int score;
 	private int movesMade;
-	private boolean won;
+	private boolean isAWin;
 	
 	public Stats(){
 		score =	0;
 		movesMade= 0;
-		boolean won= false;
+		isAWin = false;
 	}
 	
+	public void resetStats(){
+		score = 0;
+		movesMade = 0;
+		isAWin = false;
+	}
+	
+	public boolean isAWin() {
+		return isAWin;
+	}
+
+	public void setAWin(boolean isAWin) {
+		this.isAWin = isAWin;
+	}
+
 	public void incrementScore(){
 		setScore(getScore()+1);
 	}
@@ -34,14 +48,7 @@ public class Stats {
 	public void setMovesMade(int movesMade) {
 		this.movesMade = movesMade;
 	}
-
-	public boolean isWon() {
-		return won;
-	}
-
-	public void setWon(boolean won) {
-		this.won = won;
-	}
-
+	
+	
 	
 }

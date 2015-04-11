@@ -12,7 +12,10 @@ public abstract class AbstractGame {
 	public Player p1;
 	public Player p2;
     
-    abstract void addPlayer();    
+    public AbstractGame(Player p1, Player p2){
+    	this.p1 = p1;
+    	this.p2 = p2;
+    }    
     
     abstract boolean isAWin();
     
