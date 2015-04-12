@@ -10,6 +10,11 @@ import model.BoardModel;
 
 import view.GameBoard;
 
+/**
+ * Abstract class that forms the blueprints for a controller that receives input from 
+ * the GameBoard class. 
+ * Is responsible for updating the BoardModel
+ */
 public abstract class BoardController implements ActionListener{
 
 	private GameBoard board;
@@ -20,6 +25,9 @@ public abstract class BoardController implements ActionListener{
 		this.gameMode = gameMode;
 	}
 
+	/**
+	 * event is of type Gameboard and the command 
+	 */
 	@Override
 	public abstract void actionPerformed(ActionEvent e);
 	
