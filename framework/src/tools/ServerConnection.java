@@ -1,14 +1,12 @@
 package tools;
 
 
-import exceptions.UsernameAlreadyExistsException;
+import exceptions.ServerErrorException;
 import model.Stats;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class ServerConnection{
 
@@ -27,7 +25,7 @@ public class ServerConnection{
         }
     }
 
-    public void sendCommand(String msg) throws UsernameAlreadyExistsException{
+    public void sendCommand(String msg) throws ServerErrorException {
         try{
             out.write(msg+"\n");
             out.flush();
@@ -50,10 +48,10 @@ public class ServerConnection{
         return loginSuccess;
     }
 
-    public void setLoginSuccess(boolean loginSuccess) throws UsernameAlreadyExistsException{
+    public void setLoginSuccess(boolean loginSuccess) throws ServerErrorException {
         this.loginSuccess = loginSuccess;
         if(this.loginSuccess == false){
-            throw new UsernameAlreadyExistsException("Username already exists!");
+            throw new ServerErrorException("Username already exists!");
         }
     }
 

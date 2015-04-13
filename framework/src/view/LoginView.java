@@ -6,8 +6,6 @@ import tools.ServerConnection;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginView extends JFrame {
@@ -16,10 +14,14 @@ public class LoginView extends JFrame {
         new LoginView();
     }
 
+    private Login login;
+    private final JTextField nameField;
+
     public LoginView() throws IOException {
 
+        super("Log in");
         final ServerConnection connection = new ServerConnection();
-        Thread thread = new Thread(new ServerListener(connection));
+        Thread thread = new Thread(new ServerListener(connection, this));
         thread.start();
 
         JPanel panel = new JPanel();
@@ -27,15 +29,23 @@ public class LoginView extends JFrame {
 
         JLabel usernameLabel = new JLabel("username");
         panel.add(usernameLabel);
-        final JTextField textField = new JTextField("Username");
-        panel.add(textField);
-        panel.add(new Login(textField.getText(), connection, this));
-        this.setSize(new Dimension(500, 300));
+        nameField = new JTextField("Username");
+        panel.add(nameField);
+        panel.add(login = new Login(connection, this));
+        this.setPreferredSize(new Dimension(400,200));
         this.add(panel);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
 
+    }
+
+    public String getCurrentName(){
+        return nameField.getText();
+    }
+
+    public Login getLogin(){
+        return login;
     }
 
 }

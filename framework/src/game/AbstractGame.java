@@ -2,13 +2,14 @@ package game;
 
 import model.Player;
 import model.Stats;
+import view.GameBoard;
 
 /**
  * Created by Gerard on 4/7/2015.
  */
 public abstract class AbstractGame {
 
-	public AbstractBoard board;
+	public GameBoard board;
 	public Player p1;
 	public Player p2;
     

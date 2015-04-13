@@ -1,10 +1,18 @@
 package view;
 
-import javax.swing.JFrame;
+import controller.OthelloController;
+import game.OthelloBoard;
 
-public class GameView extends JFrame{
+import javax.swing.*;
 
-	private GameBoard board;
-	private TimeView timeview;
+/**
+ * Created by Gerard on 4/13/2015.
+ */
+public class GameView extends JFrame {
+
+    public GameView(){
+        this.add(new OthelloBoard(new OthelloController(1,1,"othello")));
+        this.setVisible(true);
+    }
 
 }
