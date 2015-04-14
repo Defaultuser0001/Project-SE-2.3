@@ -14,8 +14,8 @@ import java.util.LinkedList;
 
 public abstract class GameBoard extends JPanel implements ActionListener{
 
-	protected final static int WHITE = 1;
-	protected final static int BLACK = 2;
+	public final static int PLAYER1 = 1;
+	public final static int PLAYER2 = 2;
 	
     protected String gameMode;
     protected JButton[][] boardTiles;

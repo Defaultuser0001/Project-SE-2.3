@@ -1,43 +1,35 @@
 package game;
 
+import model.BoardModel;
 import model.Player;
 
 /**
  * Created by Gerard on 4/7/2015.
  */
-public class Othello extends AbstractGame{
+public class Othello extends BoardModel{
 
-	public Othello(Player p1, Player p2) {
-		super(p1, p2);
+	public Othello(int starting_player) {
+		super(starting_player, 8, 8);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	boolean isAWin() {
+	public boolean playMove(int move) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	boolean isADraw() {
+	protected boolean isValidMove(int move) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	boolean movePossible() {
+	public int isAWin(int side) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
-	@Override
-	void chooseMove() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	boolean moveValid() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 }

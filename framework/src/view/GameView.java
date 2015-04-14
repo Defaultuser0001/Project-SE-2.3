@@ -1,7 +1,9 @@
 package view;
 
-import controller.OthelloController;
 import game.OthelloBoard;
+import game.OthelloController;
+import game.TicTacToeBoard;
+import game.TicTacToeController;
 
 import javax.swing.*;
 
@@ -11,7 +13,7 @@ import javax.swing.*;
 public class GameView extends JFrame {
 
     public GameView(){
-        this.add(new OthelloBoard(new OthelloController(1,1,"othello")));
+        this.add(new TicTacToeController().getBoard());
         this.setVisible(true);
     }
 

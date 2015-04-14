@@ -17,9 +17,9 @@ import view.GameBoard;
  */
 public abstract class BoardController implements ActionListener{
 
-	private GameBoard board;
-	private BoardModel model;
-	private String gameMode;
+	protected GameBoard board;
+	protected BoardModel model;
+	protected String gameMode;
 	
 	public BoardController(int x, int y, String gameMode){
 		this.gameMode = gameMode;

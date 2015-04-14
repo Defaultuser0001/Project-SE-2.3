@@ -1,43 +1,36 @@
 package game;
 
+import model.BoardModel;
 import model.Player;
 
 /**
  * Created by Gerard on 4/7/2015.
  */
-public class TicTacToe extends AbstractGame{
+public class TicTacToe extends BoardModel{
 
-	public TicTacToe(Player p1, Player p2) {
-		super(p1, p2);
+
+	public TicTacToe(int starting_player) {
+		super(starting_player, 3, 3);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	boolean isAWin() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean playMove(int move) {
+		if (isValidMove(move)){
+			board[move] = side;
+			flipSide();
+			return true;
+		} else return false;
 	}
 
 	@Override
-	boolean isADraw() {
-		// TODO Auto-generated method stub
-		return false;
+	protected boolean isValidMove(int move) {
+		return board[move] == EMPTY;
 	}
 
 	@Override
-	boolean movePossible() {
+	public int isAWin(int side) {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	void chooseMove() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	boolean moveValid() {
-		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 }

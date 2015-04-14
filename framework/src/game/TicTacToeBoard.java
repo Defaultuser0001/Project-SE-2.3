@@ -15,7 +15,7 @@ import view.GameBoard;
 
 
 
-public class OthelloBoard extends GameBoard{
+public class TicTacToeBoard extends GameBoard{
 
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
@@ -23,34 +23,24 @@ public class OthelloBoard extends GameBoard{
 	 * Creates a new instance of the OthelloBoard
 	 * @param listener An ActionListener that handles actions fired by this class
 	 */
-	public OthelloBoard(BoardController listener) {
+	public TicTacToeBoard(BoardController listener) {
 		super(listener);
 		setBoardTiles();
-		setLayout(new GridLayout(8,8));
+		setLayout(new GridLayout(3,3));
 	}
 
 	/**
-	 * Creates 64 tiles with the starting position of an othello game
+	 * Creates 9 tiles with the starting position of a tic tac toe game
 	 * 
-	 *  0  1  2  3  4  5  6  7
-	 *  8  9 10 11 12 13 14 15
-	 * 16 17 18 19 20 21 22 23
-	 * 24 25 26 27 28 29 30 31
-	 * 32 33 34 35 36 37 38 39
-	 * 40 41 42 43 44 45 46 47
-	 * 48 49 50 51 52 53 54 55
-	 * 56 57 58 59 60 61 62 63
+	 *  0  1  2 
+	 *  3  4  5
+	 *  6  7  8
 	 * 
 	 */
 	@Override
 	protected void setBoardTiles() {
-		for (int i = 0; i < 64; i++){
+		for (int i = 0; i < 9; i++){
 			Tile tile = new Tile(i);
-			if (i == 27|| i == 36) {
-				tile.setWhite();
-			}if (i == 28 || i == 35) {
-				tile.setBlack();
-			}
 			tile.addActionListener(this);
 			tiles.add(tile);
 			add(tile);
@@ -93,19 +83,19 @@ public class OthelloBoard extends GameBoard{
 	/**
 	 * private inner class
 	 * 
-	 * Takes care of visualization of a tile of an othello game
+	 * Takes care of visualization of a tile of a tic tac toe game
 	 */
 	private class Tile extends JButton{
 
-		private ImageIcon white = new ImageIcon("./res/Othello/Othello_white.png");
-		private ImageIcon black = new ImageIcon("./res/Othello/Othello_black.png");
+		private ImageIcon white = new ImageIcon("./res/TicTacToe/TicTacToe_circle.png");
+		private ImageIcon black = new ImageIcon("./res/TicTacToe/TicTacToe_cross.png");
 		
 		private int move;
 		
 		public Tile(int move) {
 			super();
 			this.move = move;
-			setBackground(new Color(0,155,0));
+			setBackground(new Color(150, 150, 150));
 		}
 		
 		public void setWhite() {
