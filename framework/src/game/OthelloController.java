@@ -14,6 +14,8 @@ public class OthelloController extends BoardController {
 
     public OthelloController() {
         super(8, 8, "Othello");
+		model = new Othello(1);
+		board = new OthelloBoard(this);
     }
 
     @Override

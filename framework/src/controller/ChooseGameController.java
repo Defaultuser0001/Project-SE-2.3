@@ -2,9 +2,11 @@ package controller;
 
 import exceptions.ServerErrorException;
 import game.OthelloBoard;
+import game.OthelloController;
 import tools.ServerConnection;
 import view.ChooseGameView;
 import view.GameView;
+import view.OthelloGameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,11 +75,15 @@ public class ChooseGameController extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		/* TODO:
+		 * pretty please add something that starts up the right game, 
+		 * otherwise the option of selecting one is kinda sad
+		 */
 		try {
 			connection.sendCommand("subscribe Reversi");
 			System.out.println("SUBSCRIBED FOR A GAME");
-			new GameView();
-			view.dispose();
+			new OthelloGameView(view, new OthelloController().getBoard());
+			view.setEnabled(false);
 		} catch (ServerErrorException e1) {
 			e1.printStackTrace();
 		}

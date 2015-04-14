@@ -64,7 +64,11 @@ public class ServerListener implements Runnable{
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Already logged in")){
                     System.err.println("Congrats, you managed to break the login system");
                 } else if (connection.getLastCommand().equals("move") && lastLine.equals("OK")){
-                    //move has been succesfully done
+                    // move has been succesfully done
+                } else if (lastLine.contains("SVR GAME MOVE")){
+                	// someone made a move (either you or your opponent)
+                } else if (lastLine.contains("SVR GAME YOURTURN")){
+                	// it's the players turn to move, allow him to do so and set the timer in motion
                 }
             }
         } catch (IOException e) {

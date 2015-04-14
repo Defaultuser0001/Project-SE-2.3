@@ -20,7 +20,7 @@ public class TicTacToeBoard extends GameBoard{
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
 	/**
-	 * Creates a new instance of the OthelloBoard
+	 * Creates a new instance of the TicTacToeBoard
 	 * @param listener An ActionListener that handles actions fired by this class
 	 */
 	public TicTacToeBoard(BoardController listener) {
