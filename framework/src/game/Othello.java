@@ -26,7 +26,7 @@ public class Othello extends BoardModel{
 	}
 
 	@Override
-	public int isAWin(int side) {
+	public int isAWin() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
