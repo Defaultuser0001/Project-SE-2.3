@@ -95,4 +95,11 @@ public class TicTacToe extends BoardModel{
 		}
 		return false;
 	}
+
+	@Override
+	public ArrayList<Integer> possibleMoves() {
+		return null;
+	}
+	
+	
 }

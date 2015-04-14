@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 
 public abstract class BoardModel {
 
@@ -13,6 +15,7 @@ public abstract class BoardModel {
 	public static final int UNCLEAR = 2;
 	
 	protected int[] board;
+	protected int[] possibleMoves;
 	protected int side;
 	
 	protected Player player1;
@@ -45,4 +48,6 @@ public abstract class BoardModel {
 		if (side == PLAYER1) side = PLAYER2;
 		else side = PLAYER1;
 	}
+
+	public abstract ArrayList<Integer> possibleMoves();
 }
