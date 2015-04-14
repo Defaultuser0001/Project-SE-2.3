@@ -38,6 +38,10 @@ public abstract class BoardController implements ActionListener{
 		return board;
 	}
 	
+	public BoardModel getModel(){
+		return model;
+	}
+	
 	public void playMove(int move) {
 		board.makeMove(model.getActivePlayer(), move);
 		model.playMove(move);
