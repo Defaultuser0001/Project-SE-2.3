@@ -1,10 +1,12 @@
 package controller;
 
 import exceptions.ServerErrorException;
+import game.TicTacToeController;
 import model.Human;
 import model.Player;
 import tools.ServerConnection;
 import view.ChooseGameView;
+import view.GameView;
 import view.LoginView;
 
 import java.io.BufferedReader;
@@ -20,6 +22,8 @@ public class ServerListener implements Runnable{
     private LoginView view;
     private Player player;
     private ChooseGameView gameView;
+    private BoardController activeGame;
+    private GameView activeGameView;
 
     public enum Commands {
         LOGIN,
@@ -58,7 +62,7 @@ public class ServerListener implements Runnable{
                     player = new Human(view.getLogin().getUsername());
                     view.setVisible(false);
                     view.dispose();
-                    gameView = new ChooseGameView((Human)player, connection);
+                    gameView = new ChooseGameView((Human)player, connection, this);
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Duplicate name exists")) {
                     throw new ServerErrorException("Username already in use!");
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Already logged in")){
@@ -66,9 +70,11 @@ public class ServerListener implements Runnable{
                 } else if (connection.getLastCommand().equals("move") && lastLine.equals("OK")){
                     // move has been succesfully done
                 } else if (lastLine.contains("SVR GAME MOVE")){
-                	// someone made a move (either you or your opponent)
+                	if (!lastLine.contains(player.getName())) {
+                		activeGame.playMove(Integer.parseInt(lastLine.split("MOVE: ")[1].replaceAll("[^0-9]", "")));
+                	}
                 } else if (lastLine.contains("SVR GAME YOURTURN")){
-                	// it's the players turn to move, allow him to do so and set the timer in motion
+                	// notifying of turn?...
                 }
             }
         } catch (IOException e) {
@@ -77,6 +83,11 @@ public class ServerListener implements Runnable{
             e.printStackTrace();
         }
     }
+
+	public void setActiveGame(BoardController game, GameView gameView) {
+		activeGame = game;
+		activeGameView = gameView;
+	}
 
     /*private void processCommand(String lastCommand, String lastLine) throws InterruptedException {
 

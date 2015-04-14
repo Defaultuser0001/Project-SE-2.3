@@ -5,6 +5,8 @@ package game;
 
 import java.awt.event.ActionEvent;
 
+import tools.ServerConnection;
+
 import controller.BoardController;
 
 /**
@@ -12,8 +14,8 @@ import controller.BoardController;
  */
 public class OthelloController extends BoardController {
 
-    public OthelloController() {
-        super(8, 8, "Othello");
+    public OthelloController(ServerConnection connection) {
+        super(8, 8, "Othello", connection);
 		model = new Othello(1);
 		board = new OthelloBoard(this);
     }

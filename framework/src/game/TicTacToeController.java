@@ -4,7 +4,10 @@ package game;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
+import tools.ServerConnection;
+
 import controller.BoardController;
+import exceptions.ServerErrorException;
 
 public class TicTacToeController extends BoardController{
 
@@ -13,8 +16,8 @@ public class TicTacToeController extends BoardController{
 	 * 
 	 * Creates new instances of both the model and view required for a game of tic-tac-toe
 	 */
-	public TicTacToeController() {
-		super(3, 3, "TicTacToe");
+	public TicTacToeController(ServerConnection connection) {
+		super(3, 3, "TicTacToe", connection);
 		model = new TicTacToe(1);
 		board = new TicTacToeBoard(this);
 	}
@@ -30,8 +33,14 @@ public class TicTacToeController extends BoardController{
 	public void actionPerformed(ActionEvent e) {
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
-		if(model.playMove(move))
+		if(model.playMove(move)) {
 			board.makeMove(player, move);
+			try {
+				connection.sendCommand("MOVE " + move);
+			} catch (ServerErrorException e1) {
+				e1.printStackTrace();
+			}
+		}
 		else JOptionPane.showMessageDialog(board, "Illegal move");
 		
 		/*

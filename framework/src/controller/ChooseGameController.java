@@ -3,12 +3,12 @@ package controller;
 import exceptions.ServerErrorException;
 import game.OthelloBoard;
 import game.OthelloController;
+import game.OthelloGameView;
 import game.TicTacToeController;
+import game.TicTacToeGameView;
 import tools.ServerConnection;
 import view.ChooseGameView;
 import view.GameView;
-import view.OthelloGameView;
-import view.TicTacToeGameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,10 +19,12 @@ public class ChooseGameController extends JPanel implements ActionListener{
 
 	private ChooseGameView view;
 	private ServerConnection connection;
+	private ServerListener server;
 
-	public ChooseGameController(ServerConnection connection, ChooseGameView view) {
+	public ChooseGameController(ServerConnection connection, ChooseGameView view, ServerListener server) {
 		this.view = view;
 		this.connection = connection;
+		this.server = server;
 		JPanel game = new JPanel();
 
 		JCheckBox checkBoxOthello = new JCheckBox("Othello");
@@ -88,9 +90,11 @@ public class ChooseGameController extends JPanel implements ActionListener{
 			new OthelloGameView(view, new OthelloController().getBoard());
 			view.setEnabled(false);
 			*/
+			TicTacToeController tttController = new TicTacToeController(connection);
+			TicTacToeGameView tttGameView = new TicTacToeGameView(view, tttController.getBoard());
+			server.setActiveGame(tttController, tttGameView);
 			connection.sendCommand("subscribe Tic-tac-toe");
 			System.out.println("SUBSCRIBED FOR A GAME");
-			new TicTacToeGameView(view, new TicTacToeController().getBoard());
 			view.setEnabled(false);
 			
 		} catch (ServerErrorException e1) {

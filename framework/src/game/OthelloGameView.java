@@ -1,7 +1,9 @@
-package view;
+package game;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import view.GameView;
 
 public class OthelloGameView extends GameView{
 

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import model.BoardModel;
 
+import tools.ServerConnection;
 import view.GameBoard;
 
 /**
@@ -20,9 +21,11 @@ public abstract class BoardController implements ActionListener{
 	protected GameBoard board;
 	protected BoardModel model;
 	protected String gameMode;
+	protected ServerConnection connection;
 	
-	public BoardController(int x, int y, String gameMode){
+	public BoardController(int x, int y, String gameMode, ServerConnection connection){
 		this.gameMode = gameMode;
+		this.connection = connection;
 	}
 
 	/**
@@ -33,5 +36,10 @@ public abstract class BoardController implements ActionListener{
 	
 	public JPanel getBoard() {
 		return board;
+	}
+	
+	public void playMove(int move) {
+		board.makeMove(model.getActivePlayer(), move);
+		model.playMove(move);
 	}
 }
