@@ -27,7 +27,7 @@ public abstract class GameView extends JFrame {
 		super();
 		this.controller = controller;
 		setLayout(new BorderLayout());
-		label = new JLabel("null");
+		label = new JLabel("");
 		label.setPreferredSize(new Dimension(100,30));
 		add(label, BorderLayout.NORTH);
 		add(board, BorderLayout.CENTER);

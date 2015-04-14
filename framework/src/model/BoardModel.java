@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 
 public abstract class BoardModel {
 
@@ -14,6 +16,7 @@ public abstract class BoardModel {
 	
 	protected int[] board;
 	protected int side;
+	private boolean myTurn = false;
 	
 	protected Player player1;
 	protected Player player2;
@@ -44,6 +47,20 @@ public abstract class BoardModel {
 	protected void flipSide() {
 		if (side == PLAYER1) side = PLAYER2;
 		else side = PLAYER1;
+	}
+
+	public void setActivePlayer(boolean b) {
+		this.myTurn = b;
+		
+	}
+
+	public boolean isMyTurn() {
+		return myTurn;
+	}
+
+	public ArrayList<Integer> possibleMoves() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
