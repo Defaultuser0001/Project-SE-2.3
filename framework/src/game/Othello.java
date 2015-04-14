@@ -28,8 +28,15 @@ public class Othello extends BoardModel{
 	@Override
 	public int isAWin() {
 		// TODO Auto-generated method stub
+		/*
+		 * vgm is -1 een pas sturen, kijk of er nog zetten mogelijk zijn, kijk of de lijst met mogelijke zetten leeg is, 
+		 * kijk of we meer stenen hebben en of het veld al vol is
+		 */
 		return 0;
 	}
+	
+	//TODO
+	//een methode om een lijst te genereren die alle mogelijke zetten bevat | linked list van integers
 
 	
 }

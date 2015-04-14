@@ -22,9 +22,10 @@ public class OthelloController extends BoardController {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	OthelloBoard board = (OthelloBoard) e.getSource();
+    	//OthelloBoard board = (OthelloBoard) e.getSource();
 		
 		int move = Integer.parseInt(e.getActionCommand());
+		//dit is nog testcode
 		board.makeMove(board.PLAYER1, move);
 		System.out.println(e.getActionCommand());
     }

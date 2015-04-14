@@ -18,7 +18,7 @@ public class ServerConnection{
 
     public ServerConnection() {
         try {
-            socket = new Socket("localhost", 7789);
+            socket = new Socket("145.37.213.108", 10009);
             out = new PrintWriter(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ public class ChooseGameView extends JFrame{
     public ChooseGameView(Human player, ServerConnection connection, ServerListener server){
         super("Choose a game || Logged in as: " + player.getName());
 
-        JTextField text = new JTextField("Choose your game mode");
+        JLabel text = new JLabel("Choose your game mode");
         this.add(text, BorderLayout.NORTH);
 
         this.add(new ChooseGameController(connection,this, server), BorderLayout.CENTER);
