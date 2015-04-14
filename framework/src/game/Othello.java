@@ -58,6 +58,30 @@ public class Othello extends BoardModel{
 		//return 0;
 	}
 	
+	/**
+	 * Checks wether the board is full
+	 * @return wether board is full
+	 */
+	private boolean boardIsFull() {
+		for(int i = 0; i<63; i++){
+			if(board[i] == EMPTY){
+				return false;
+			}
+		}return true;
+	}
+	
+	/**
+	 * Checks wether the player has any tiles
+	 * @return of een player nog een tile heeft en dus uberhaupt een zet kan doen
+	 */
+	private boolean playerHasTiles(int PLAYER) {
+		for(int i : board){
+			if(i == PLAYER){
+				return true;
+			}
+		}return false;
+	}
+	
 	public boolean hasWon(ArrayList<Integer> player){
 		
 		return false;	
