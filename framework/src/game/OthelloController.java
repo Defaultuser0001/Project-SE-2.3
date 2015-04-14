@@ -16,7 +16,7 @@ public class OthelloController extends BoardController {
 
     public OthelloController(ServerConnection connection) {
         super(8, 8, "Othello", connection);
-		model = new Othello(1);
+		model = new Othello();
 		board = new OthelloBoard(this);
     }
 

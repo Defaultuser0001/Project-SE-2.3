@@ -18,7 +18,6 @@ public abstract class GameBoard extends JPanel implements ActionListener{
 	public final static int PLAYER2 = 2;
 	
     protected String gameMode;
-    protected JButton[][] boardTiles;
     protected LinkedList<ActionListener> listeners = new LinkedList<ActionListener>();
 
     public GameBoard(BoardController listener){

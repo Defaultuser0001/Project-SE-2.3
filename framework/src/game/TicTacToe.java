@@ -9,8 +9,8 @@ import model.BoardModel;
  */
 public class TicTacToe extends BoardModel{
 
-	public TicTacToe(int starting_player) {
-		super(starting_player, 3, 3);
+	public TicTacToe() {
+		super(3, 3);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class TicTacToeController extends BoardController{
 	 */
 	public TicTacToeController(ServerConnection connection) {
 		super(3, 3, "TicTacToe", connection);
-		model = new TicTacToe(1);
+		model = new TicTacToe();
 		board = new TicTacToeBoard(this);
 	}
 

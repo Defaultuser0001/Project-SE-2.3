@@ -8,8 +8,8 @@ import model.Player;
  */
 public class Othello extends BoardModel{
 
-	public Othello(int starting_player) {
-		super(starting_player, 8, 8);
+	public Othello() {
+		super(8, 8);
 		// TODO Auto-generated constructor stub
 	}
 

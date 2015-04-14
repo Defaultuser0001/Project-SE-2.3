@@ -18,9 +18,9 @@ public abstract class BoardModel {
 	protected Player player1;
 	protected Player player2;
 	
-	public BoardModel(int side, int width, int height){
+	public BoardModel(int width, int height){
 		board = new int[width*height];
-		this.side = side;
+		side = PLAYER1;
 		
 		for (int i = 0; i < width; i++) {
 			board[i] = EMPTY;
