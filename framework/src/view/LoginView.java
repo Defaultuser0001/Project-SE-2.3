@@ -16,24 +16,37 @@ public class LoginView extends JFrame {
 
     private Login login;
     private final JTextField nameField;
-
+    private final JTextField ip;
+    private final JTextField port;
+    
     public LoginView() throws IOException {
 
         super("Log in");
-        final ServerConnection connection = new ServerConnection();
-        Thread thread = new Thread(new ServerListener(connection, this));
-        thread.start();
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
-
-        JLabel usernameLabel = new JLabel("username");
-        panel.add(usernameLabel);
+        
+        JPanel usernamepanel = new JPanel();
+        usernamepanel.setLayout(new BorderLayout());
+        JLabel usernameLabel = new JLabel("Username:");
+        usernamepanel.add(usernameLabel, BorderLayout.NORTH);
         nameField = new JTextField("Username");
-        panel.add(nameField);
-        panel.add(login = new Login(connection, this));
+        usernamepanel.add(nameField, BorderLayout.CENTER);
+        
+        JPanel centerpanel = new JPanel();
+        centerpanel.setLayout(new BorderLayout()); 
+        JLabel socketLabel = new JLabel("Enter IP and port"); 
+        centerpanel.add(socketLabel, BorderLayout.CENTER);
+        
+        JPanel socketpanel = new JPanel();
+        socketpanel.setLayout(new BorderLayout()); 
+        ip = new JTextField("localhost");
+        socketpanel.add(ip, BorderLayout.NORTH);
+        port = new JTextField("7789");
+        socketpanel.add(port, BorderLayout.CENTER);
+        socketpanel.add(login = new Login(this), BorderLayout.SOUTH);
         this.setPreferredSize(new Dimension(400,200));
-        this.add(panel);
+        
+        this.add(usernamepanel, BorderLayout.NORTH);
+        this.add(centerpanel, BorderLayout.CENTER);
+        this.add(socketpanel, BorderLayout.SOUTH);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
@@ -42,6 +55,14 @@ public class LoginView extends JFrame {
 
     public String getCurrentName(){
         return nameField.getText();
+    }
+    
+    public String getIP(){
+    	return ip.getText();
+    }
+    
+    public int getPort(){
+    	return Integer.parseInt(port.getText());
     }
 
     public Login getLogin(){

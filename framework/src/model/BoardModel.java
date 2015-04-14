@@ -14,13 +14,12 @@ public abstract class BoardModel {
 	
 	protected int[] board;
 	protected int side;
+	protected boolean myTurn = false;
 	
-	protected Player player1;
-	protected Player player2;
+	protected Player player1, player2;
 	
 	public BoardModel(int width, int height){
 		board = new int[width*height];
-		side = PLAYER1;
 		
 		for (int i = 0; i < width; i++) {
 			board[i] = EMPTY;
@@ -39,6 +38,14 @@ public abstract class BoardModel {
 
 	public int getActivePlayer() {
 		return side;
+	}
+	
+	public boolean isMyTurn(){
+		return myTurn;
+	}
+	
+	public void setActivePlayer(boolean bool){
+		this.myTurn = bool;
 	}
 	
 	protected void flipSide() {

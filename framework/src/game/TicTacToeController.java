@@ -33,16 +33,18 @@ public class TicTacToeController extends BoardController{
 	public void actionPerformed(ActionEvent e) {
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
-		if(model.playMove(move)) {
-			board.makeMove(player, move);
-			try {
-				connection.sendCommand("MOVE " + move);
-			} catch (ServerErrorException e1) {
-				e1.printStackTrace();
+		if(model.isMyTurn()){
+			if(model.playMove(move)) {
+				board.makeMove(player, move);
+				try {
+					connection.sendCommand("MOVE " + move);
+					
+				} catch (ServerErrorException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
-		else JOptionPane.showMessageDialog(board, "Illegal move");
-		
+			else JOptionPane.showMessageDialog(board, "Illegal move");
+		} else JOptionPane.showMessageDialog(board, "Not your turn");
 		/*
 		 * Following code within comments is for testing the win/loss/draw check
 		 * 

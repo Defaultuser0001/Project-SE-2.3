@@ -56,7 +56,6 @@ public class ServerListener implements Runnable{
             while((reader = in.readLine()) != null) {
                 System.out.println(reader);
                 lastLine = reader;
-                //processCommand(connection.getLastCommand(), lastLine);
                 if (connection.getLastCommand().equals("login") && lastLine.equals("OK")) {
 
                     player = new Human(view.getLogin().getUsername());
@@ -70,11 +69,14 @@ public class ServerListener implements Runnable{
                 } else if (connection.getLastCommand().equals("move") && lastLine.equals("OK")){
                     // move has been succesfully done
                 } else if (lastLine.contains("SVR GAME MOVE")){
+                	activeGame.getModel().setActivePlayer(false);
+                	activeGameView.updateLabel();
                 	if (!lastLine.contains(player.getName())) {
                 		activeGame.playMove(Integer.parseInt(lastLine.split("MOVE: ")[1].replaceAll("[^0-9]", "")));
                 	}
                 } else if (lastLine.contains("SVR GAME YOURTURN")){
-                	// notifying of turn?...
+                	activeGame.getModel().setActivePlayer(true);
+                	activeGameView.updateLabel();
                 }
             }
         } catch (IOException e) {
@@ -89,22 +91,4 @@ public class ServerListener implements Runnable{
 		activeGameView = gameView;
 	}
 
-    /*private void processCommand(String lastCommand, String lastLine) throws InterruptedException {
-
-        String str = lastCommand;
-        Commands command = Commands.valueOf(str.toUpperCase());
-
-        switch(command){
-            case LOGIN:
-                System.out.println("LOGIN");
-                break;
-            case MOVE:
-                System.out.println("MOVE");
-            break;
-            default:
-                System.out.println("waiting..");
-                Thread.sleep(1000);
-                break;
-        }
-    }*/
 }

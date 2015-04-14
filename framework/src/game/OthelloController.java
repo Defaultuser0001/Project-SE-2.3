@@ -25,7 +25,7 @@ public class OthelloController extends BoardController {
     	//OthelloBoard board = (OthelloBoard) e.getSource();
 		
 		int move = Integer.parseInt(e.getActionCommand());
-		//dit is nog testcode
+		System.out.println("SET MOVE " + move);
 		board.makeMove(board.PLAYER1, move);
 		System.out.println(e.getActionCommand());
     }

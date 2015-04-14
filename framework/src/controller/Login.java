@@ -5,6 +5,7 @@ import view.LoginView;
 import tools.ServerConnection;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,11 +20,8 @@ public class Login extends JPanel implements ActionListener {
     private String username;
     private Lock lock = new ReentrantLock();
 
-    public Login( ServerConnection connection, LoginView view) throws IOException {
-        this.connection = connection;
+    public Login(LoginView view) throws IOException {
         this.view = view;
-        this.setLayout(new GridLayout(1, 1));
-        //create login button
         JButton button = new JButton("log_in");
         this.add(button);
         button.addActionListener(this);
@@ -37,6 +35,10 @@ public class Login extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("log_in")) {
             try {
+            	connection = new ServerConnection(view.getIP(), view.getPort());
+            	Thread thread = new Thread(new ServerListener(connection, view));
+                thread.start();
+                
                 this.username = view.getCurrentName();
                 this.connection.sendCommand("login " + this.username);
             } catch (ServerErrorException e1) {

@@ -16,9 +16,9 @@ public class ServerConnection{
     private String lastCommand = "";
     private boolean loginSuccess = false;
 
-    public ServerConnection() {
+    public ServerConnection(String ip, int port) {
         try {
-            socket = new Socket("145.37.213.108", 10009);
+            socket = new Socket(ip, port);
             out = new PrintWriter(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
