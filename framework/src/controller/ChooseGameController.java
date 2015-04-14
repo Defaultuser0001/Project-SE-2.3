@@ -118,14 +118,14 @@ public class ChooseGameController extends JPanel implements ActionListener{
 		try {
 			if(othelloButton.isSelected()){
 				OthelloController othelloController = new OthelloController(connection);
-				OthelloGameView othelloView = new OthelloGameView(view, othelloController.getBoard());
+				OthelloGameView othelloView = new OthelloGameView(view, othelloController.getBoard(), othelloController);
 				server.setActiveGame(othelloController, othelloView);
 				connection.sendCommand("subscribe Reversi");
 				System.out.println("SUBSCRIBED FOR A GAME");
 				view.setEnabled(false);
 			}  else {
 				TicTacToeController tttController = new TicTacToeController(connection);
-				TicTacToeGameView tttGameView = new TicTacToeGameView(view, tttController.getBoard());
+				TicTacToeGameView tttGameView = new TicTacToeGameView(view, tttController.getBoard(), tttController);
 				server.setActiveGame(tttController, tttGameView);
 				connection.sendCommand("subscribe Tic-tac-toe");
 				System.out.println("SUBSCRIBED FOR A GAME");

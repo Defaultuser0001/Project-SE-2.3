@@ -7,8 +7,8 @@ import view.GameView;
 
 public class TicTacToeGameView extends GameView{
 
-	public TicTacToeGameView(JFrame parent, JPanel board) {
-		super(parent, board);
+	public TicTacToeGameView(JFrame parent, JPanel board, TicTacToeController tttController) {
+		super(parent, board, tttController);
 		setSize(300, 300);
 	}
 

@@ -7,8 +7,8 @@ import view.GameView;
 
 public class OthelloGameView extends GameView{
 
-	public OthelloGameView(JFrame parent, JPanel board) {
-		super(parent, board);
+	public OthelloGameView(JFrame parent, JPanel board, OthelloController controller) {
+		super(parent, board, controller);
 		setSize(500, 500);
 	}
 
