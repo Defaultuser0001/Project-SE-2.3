@@ -3,10 +3,12 @@ package controller;
 import exceptions.ServerErrorException;
 import game.OthelloBoard;
 import game.OthelloController;
+import game.TicTacToeController;
 import tools.ServerConnection;
 import view.ChooseGameView;
 import view.GameView;
 import view.OthelloGameView;
+import view.TicTacToeGameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,10 +82,17 @@ public class ChooseGameController extends JPanel implements ActionListener{
 		 * otherwise the option of selecting one is kinda sad
 		 */
 		try {
+			/*
 			connection.sendCommand("subscribe Reversi");
 			System.out.println("SUBSCRIBED FOR A GAME");
 			new OthelloGameView(view, new OthelloController().getBoard());
 			view.setEnabled(false);
+			*/
+			connection.sendCommand("subscribe Tic-tac-toe");
+			System.out.println("SUBSCRIBED FOR A GAME");
+			new TicTacToeGameView(view, new TicTacToeController().getBoard());
+			view.setEnabled(false);
+			
 		} catch (ServerErrorException e1) {
 			e1.printStackTrace();
 		}
