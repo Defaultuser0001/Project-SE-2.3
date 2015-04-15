@@ -73,9 +73,21 @@ public class ServerListener implements Runnable{
                 	if(parseString(lastLine).get(1).equals("Tic-tac-toe")){
                 		cgcontroller.createGame("ttt");
                 		cgcontroller.getView().disableQueueText();
+                		if(parseString(lastLine).get(0).equals(player.getName())){
+                			activeGame.getModel().setActivePlayer(true);
+                			activeGameView.setSide(true);
+                		} else {
+                			activeGame.getModel().setActivePlayer(false);
+                			activeGameView.setSide(false);
+                		}
                 	} else {
                 		cgcontroller.createGame(parseString(lastLine).get(1));
                 		cgcontroller.getView().disableQueueText();
+                		if(parseString(lastLine).get(0).equals(player.getName())){
+                			activeGameView.setSide(true);
+                		} else {
+                			activeGameView.setSide(false);
+                		}
                 	}
                 
                 } else if (lastLine.contains("SVR GAME MOVE")){
@@ -101,13 +113,12 @@ public class ServerListener implements Runnable{
                  */
                 } else if(lastLine.contains("SVR GAME CHALLENGE {")){
                 	String challenger = parseString(lastLine).get(0);
-                	String gametype = parseString(lastLine).get(1);
-                	int id = Integer.parseInt(parseString(lastLine).get(2));
+                	int id = Integer.parseInt(parseString(lastLine).get(1));
+                	String gametype = parseString(lastLine).get(2);      	
                 	int reply = JOptionPane.showConfirmDialog(null, challenger + " has challenged you to play " + gametype, "Challenge received!", JOptionPane.YES_NO_OPTION);
                 	if(reply == JOptionPane.YES_OPTION){
                 		connection.sendCommand("challenge accept " + id);
                 	}
-                	
                 } else if(lastLine.contains("LOSS")){
                 	JOptionPane.showMessageDialog(null, "You lose!", "Lost!", JOptionPane.CLOSED_OPTION);
                 	activeGameView.dispose();

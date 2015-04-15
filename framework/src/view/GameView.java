@@ -24,11 +24,14 @@ public abstract class GameView extends JFrame {
 	
 	private JLabel label;
 	private BoardController controller;
+	private JLabel side;
 
 	public GameView(final JFrame parent, JPanel board, BoardController controller, final ServerConnection connection) {
 		super();
 		this.controller = controller;
 		setLayout(new BorderLayout());
+		side = new JLabel("Your side:");
+		side.setHorizontalTextPosition(SwingConstants.LEFT);
 		label = new JLabel("");
 		label.setPreferredSize(new Dimension(100,30));
 		add(label, BorderLayout.NORTH);
@@ -51,6 +54,26 @@ public abstract class GameView extends JFrame {
 			}
 		});
 
+	}
+	
+	public void setSide(boolean checker){
+		ImageIcon white = new ImageIcon("./res/Othello/Othello_white.png");
+		ImageIcon black = new ImageIcon("./res/Othello/Othello_black.png");
+		ImageIcon O = new ImageIcon("./res/TicTacToe/TicTacToe_circle.png");
+		ImageIcon X = new ImageIcon("./res/TicTacToe/TicTacToe_cross.png");
+		if(controller.gameMode().equals("TicTacToe")){
+			if(checker){
+				side.setIcon(X);
+			} else {
+				side.setIcon(O);
+			}
+		} else {
+			if(checker){
+				side.setIcon(white);
+			} else {
+				side.setIcon(black);
+			}
+		}
 	}
 	
 	public void updateLabel(){

@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import model.BoardModel;
-
 import tools.ServerConnection;
 import view.GameBoard;
 import view.TimeView;
@@ -58,5 +57,9 @@ public abstract class BoardController implements ActionListener{
 	
 	public JPanel getTimeView(){
 		return timeView;
+	}
+
+	public String gameMode() {
+		return gameMode;
 	}
 }
