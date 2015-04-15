@@ -37,8 +37,8 @@ public class OthelloController extends BoardController {
 		else JOptionPane.showMessageDialog(board, "Illegal move");
 		
 		
-		for(int i : model.possibleMoves()){
-			System.out.println(Integer.toString(i));
+		for(Integer i : model.possibleMoves(model.side)){
+			System.out.println(i.toString());
 		}
     }
 }
