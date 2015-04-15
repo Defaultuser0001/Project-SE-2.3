@@ -23,7 +23,6 @@ public abstract class BoardModel {
 	
 	public BoardModel(int width, int height){
 		board = new int[width*height];
-		side = PLAYER1;
 		
 		for (int i = 0; i < width; i++) {
 			board[i] = EMPTY;
