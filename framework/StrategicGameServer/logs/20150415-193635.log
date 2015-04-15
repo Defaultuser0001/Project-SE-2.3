@@ -1,0 +1,10 @@
+2015/04/15 19:36:35 - Loaded game module: Reversi
+2015/04/15 19:36:35 - Loaded game module: Tic-tac-toe
+2015/04/15 19:36:35 - Error while instantiating GameServer: java.net.BindException: Address already in use: bind
+2015/04/15 19:36:35 - Started closing application
+2015/04/15 19:36:35 - Saving settings
+2015/04/15 19:36:35 - Closing GameServerGUI
+2015/04/15 19:36:35 - Error while closing GameServerGUI: java.lang.NullPointerException
+2015/04/15 19:36:35 - Closing GameServer
+2015/04/15 19:36:35 - Error while closing GameServer: java.lang.NullPointerException
+2015/04/15 19:36:35 - Application closed

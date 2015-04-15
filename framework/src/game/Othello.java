@@ -33,7 +33,7 @@ public class Othello extends BoardModel{
 	protected boolean isValidMove(int move) {
 		for (Entry<Integer, ArrayList<Integer>> entry : possibleMoves(getActivePlayer()).entrySet())
 		{
-		  if(entry.getValue().contains(move)){
+		  if(entry.getValue() != null && entry.getKey() == move){
 			  return true;
 		  }
 		}
@@ -131,10 +131,114 @@ public class Othello extends BoardModel{
 	
 	public HashMap<Integer, ArrayList<Integer>> possibleMoves(int side){
 		HashMap<Integer , ArrayList<Integer>> possiblemoves = new HashMap<Integer, ArrayList<Integer>>();
+		HashMap<Integer , ArrayList<Integer>> temp = new HashMap<Integer, ArrayList<Integer>>();
 		int count = 0;
 		for(int i : board){
 			if(i == side){
-				possiblemoves.putAll(findPossibleMoves(count, -9, new ArrayList<Integer>(), side, true));	
+				temp = findPossibleMoves(count, -9, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				temp = findPossibleMoves(count, -8, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				temp = findPossibleMoves(count, -7, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				temp = findPossibleMoves(count, -1, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				temp = findPossibleMoves(count, 1, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				temp = findPossibleMoves(count, 7, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				temp = findPossibleMoves(count, 8, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				temp = findPossibleMoves(count, 9, new ArrayList<Integer>(), side, true);
+				if(temp != null){
+					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
+						if(possiblemoves.containsKey(entry.getKey())){
+							ArrayList<Integer> test = possiblemoves.get(entry.getKey());
+							test.addAll(entry.getValue());
+							possiblemoves.put(entry.getKey(), test);
+						}else{
+							possiblemoves.put(entry.getKey(),entry.getValue());
+						}
+					}
+				}
+				
+				
 			}
 			count++;
 		}

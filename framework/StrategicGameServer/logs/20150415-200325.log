@@ -1,0 +1,162 @@
+2015/04/15 20:03:25 - Loaded game module: Reversi
+2015/04/15 20:03:25 - Loaded game module: Tic-tac-toe
+2015/04/15 20:03:25 - Server listening on port 7789
+2015/04/15 20:03:26 - Application started
+2015/04/15 20:03:32 - Handling command: action=login, argument=Username
+2015/04/15 20:03:32 - Client logged in: Username
+2015/04/15 20:03:36 - Handling command: action=login, argument=Usernamed
+2015/04/15 20:03:36 - Client logged in: Usernamed
+2015/04/15 20:03:38 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:03:42 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:04:00 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:04:00 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:05:13 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:05:13 - Disconnecting client
+2015/04/15 20:05:13 - Closing client socket connection
+2015/04/15 20:05:13 - Client disconnected, removing input buffer
+2015/04/15 20:05:15 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:05:15 - Disconnecting client
+2015/04/15 20:05:15 - Closing client socket connection
+2015/04/15 20:05:15 - Client disconnected, removing input buffer
+2015/04/15 20:05:20 - Handling command: action=login, argument=Username
+2015/04/15 20:05:20 - Client logged in: Username
+2015/04/15 20:05:22 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:05:27 - Handling command: action=login, argument=Username2
+2015/04/15 20:05:27 - Client logged in: Username2
+2015/04/15 20:05:29 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:06:12 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:06:12 - Disconnecting client
+2015/04/15 20:06:12 - Closing client socket connection
+2015/04/15 20:06:12 - Client disconnected, removing input buffer
+2015/04/15 20:06:13 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:06:13 - Disconnecting client
+2015/04/15 20:06:13 - Closing client socket connection
+2015/04/15 20:06:13 - Client disconnected, removing input buffer
+2015/04/15 20:06:18 - Handling command: action=login, argument=Username
+2015/04/15 20:06:18 - Client logged in: Username
+2015/04/15 20:06:19 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:06:24 - Handling command: action=login, argument=Username3
+2015/04/15 20:06:24 - Client logged in: Username3
+2015/04/15 20:06:25 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:28:37 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:28:37 - Disconnecting client
+2015/04/15 20:28:37 - Closing client socket connection
+2015/04/15 20:28:37 - Client disconnected, removing input buffer
+2015/04/15 20:28:41 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:28:41 - Disconnecting client
+2015/04/15 20:28:41 - Closing client socket connection
+2015/04/15 20:28:41 - Client disconnected, removing input buffer
+2015/04/15 20:28:47 - Handling command: action=login, argument=Username
+2015/04/15 20:28:47 - Client logged in: Username
+2015/04/15 20:28:48 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:28:51 - Handling command: action=login, argument=Username
+2015/04/15 20:28:54 - Handling command: action=login, argument=Username2
+2015/04/15 20:28:54 - Client logged in: Username2
+2015/04/15 20:28:55 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:29:55 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:29:55 - Disconnecting client
+2015/04/15 20:29:55 - Closing client socket connection
+2015/04/15 20:29:55 - Client disconnected, removing input buffer
+2015/04/15 20:29:56 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:29:56 - Disconnecting client
+2015/04/15 20:29:56 - Closing client socket connection
+2015/04/15 20:29:56 - Client disconnected, removing input buffer
+2015/04/15 20:29:56 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:29:56 - Disconnecting client
+2015/04/15 20:29:56 - Closing client socket connection
+2015/04/15 20:29:56 - Client disconnected, removing input buffer
+2015/04/15 20:30:02 - Handling command: action=login, argument=Username2
+2015/04/15 20:30:02 - Client logged in: Username2
+2015/04/15 20:30:03 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:30:08 - Handling command: action=login, argument=Username
+2015/04/15 20:30:08 - Client logged in: Username
+2015/04/15 20:30:09 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:30:15 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:30:15 - Disconnecting client
+2015/04/15 20:30:15 - Closing client socket connection
+2015/04/15 20:30:15 - Client disconnected, removing input buffer
+2015/04/15 20:30:16 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:30:16 - Disconnecting client
+2015/04/15 20:30:16 - Closing client socket connection
+2015/04/15 20:30:16 - Client disconnected, removing input buffer
+2015/04/15 20:30:51 - Handling command: action=login, argument=Username
+2015/04/15 20:30:51 - Client logged in: Username
+2015/04/15 20:30:52 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:30:56 - Handling command: action=login, argument=Username2
+2015/04/15 20:30:56 - Client logged in: Username2
+2015/04/15 20:30:57 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:31:11 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:31:11 - Disconnecting client
+2015/04/15 20:31:11 - Closing client socket connection
+2015/04/15 20:31:11 - Client disconnected, removing input buffer
+2015/04/15 20:31:12 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:31:12 - Disconnecting client
+2015/04/15 20:31:12 - Closing client socket connection
+2015/04/15 20:31:12 - Client disconnected, removing input buffer
+2015/04/15 20:31:53 - Handling command: action=login, argument=Username4
+2015/04/15 20:31:53 - Client logged in: Username4
+2015/04/15 20:31:54 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:32:03 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:32:03 - Disconnecting client
+2015/04/15 20:32:03 - Closing client socket connection
+2015/04/15 20:32:03 - Client disconnected, removing input buffer
+2015/04/15 20:32:21 - Handling command: action=login, argument=32Username
+2015/04/15 20:32:21 - Client logged in: 32Username
+2015/04/15 20:32:22 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:32:26 - Handling command: action=login, argument=Username
+2015/04/15 20:32:26 - Client logged in: Username
+2015/04/15 20:32:27 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:33:35 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:33:35 - Disconnecting client
+2015/04/15 20:33:35 - Closing client socket connection
+2015/04/15 20:33:35 - Client disconnected, removing input buffer
+2015/04/15 20:33:36 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:33:36 - Disconnecting client
+2015/04/15 20:33:36 - Closing client socket connection
+2015/04/15 20:33:36 - Client disconnected, removing input buffer
+2015/04/15 20:34:59 - Handling command: action=login, argument=Username2
+2015/04/15 20:34:59 - Client logged in: Username2
+2015/04/15 20:35:00 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:35:05 - Handling command: action=login, argument=Username
+2015/04/15 20:35:05 - Client logged in: Username
+2015/04/15 20:35:06 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:35:10 - Handling command: action=forfeit, argument=
+2015/04/15 20:35:13 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:35:13 - Disconnecting client
+2015/04/15 20:35:13 - Closing client socket connection
+2015/04/15 20:35:13 - Client disconnected, removing input buffer
+2015/04/15 20:35:15 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:35:15 - Disconnecting client
+2015/04/15 20:35:15 - Closing client socket connection
+2015/04/15 20:35:15 - Client disconnected, removing input buffer
+2015/04/15 20:38:25 - Handling command: action=login, argument=Username2
+2015/04/15 20:38:25 - Client logged in: Username2
+2015/04/15 20:38:26 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:38:33 - Handling command: action=login, argument=Username1
+2015/04/15 20:38:33 - Client logged in: Username1
+2015/04/15 20:38:34 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:38:38 - Handling command: action=MOVE, argument=20
+2015/04/15 20:38:46 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:38:51 - Handling command: action=subscribe, argument=Reversi
+2015/04/15 20:38:54 - Handling command: action=MOVE, argument=45
+2015/04/15 20:38:57 - Handling command: action=MOVE, argument=34
+2015/04/15 20:38:58 - Handling command: action=MOVE, argument=19
+2015/04/15 20:39:00 - Handling command: action=MOVE, argument=20
+2015/04/15 20:39:00 - Handling command: action=MOVE, argument=26
+2015/04/15 20:39:01 - Handling command: action=MOVE, argument=25
+2015/04/15 20:39:05 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:39:05 - Disconnecting client
+2015/04/15 20:39:05 - Closing client socket connection
+2015/04/15 20:39:05 - Client disconnected, removing input buffer
+2015/04/15 20:39:06 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2015/04/15 20:39:06 - Disconnecting client
+2015/04/15 20:39:06 - Closing client socket connection
+2015/04/15 20:39:06 - Client disconnected, removing input buffer
+2015/04/15 20:43:59 - Started closing application
+2015/04/15 20:43:59 - Saving settings
+2015/04/15 20:43:59 - Closing GameServerGUI
+2015/04/15 20:43:59 - Closing GameServer
+2015/04/15 20:43:59 - Closing client input handler
+2015/04/15 20:43:59 - Closing server selector
+2015/04/15 20:43:59 - Closing server socket
+2015/04/15 20:43:59 - Application closed
