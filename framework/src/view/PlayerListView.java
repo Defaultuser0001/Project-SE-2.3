@@ -30,9 +30,6 @@ public class PlayerListView extends JFrame{
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		for (int i = 0; i < playerList.size(); i++) {
 			model.addElement(playerList.get(i));
-			if(model.getElementAt(i).equals(connection.getPlayerName())){
-				model.remove(i);
-			}
 		}
 		final JList<String> jlist2 = new JList<String>(model);
 	    jlist2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );    

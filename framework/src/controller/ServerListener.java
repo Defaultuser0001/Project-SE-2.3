@@ -70,11 +70,11 @@ public class ServerListener implements Runnable{
                  * Listen if a move has been made.
                  */
                 } else if(lastLine.contains("SVR GAME MATCH")){
-                	if(parseString(lastLine).get(1).equals("Tic-tac-toe")){
+                	if(parseString(lastLine).get(2).equals("Tic-tac-toe")){
                 		cgcontroller.createGame("ttt");
                 		cgcontroller.getView().disableQueueText();
                 	} else {
-                		cgcontroller.createGame(parseString(lastLine).get(1));
+                		cgcontroller.createGame(parseString(lastLine).get(2));
                 		cgcontroller.getView().disableQueueText();
                 	}
                 
@@ -101,8 +101,8 @@ public class ServerListener implements Runnable{
                  */
                 } else if(lastLine.contains("SVR GAME CHALLENGE {")){
                 	String challenger = parseString(lastLine).get(0);
-                	int id = Integer.parseInt(parseString(lastLine).get(1));
-                	String gametype = parseString(lastLine).get(2);
+                	int id = Integer.parseInt(parseString(lastLine).get(2));
+                	String gametype = parseString(lastLine).get(1);
                 	int reply = JOptionPane.showConfirmDialog(null, challenger + " has challenged you to play " + gametype, "Challenge received!", JOptionPane.YES_NO_OPTION);
                 	if(reply == JOptionPane.YES_OPTION){
                 		connection.sendCommand("challenge accept " + id);
