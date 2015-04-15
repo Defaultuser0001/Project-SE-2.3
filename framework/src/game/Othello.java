@@ -140,12 +140,4 @@ public class Othello extends BoardModel{
 		}
 		return moves;
 	}
-	
-	
-/*	public ArrayList<Integer> findPossibleMove(Integer move, ArrayList<Integer> moves){
-		if(move > 0 && !moves.contains(move)){
-			moves.add(move);
-		}
-		return moves;
-	}	*/
 }
