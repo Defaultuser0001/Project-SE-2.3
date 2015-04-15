@@ -1,12 +1,13 @@
-package model;
+package game;
 
 import java.util.ArrayList;
 
-import ttt.TicTacToe.Best;
 
-public class AI {
+
+public class OthelloAI {
 
 	private Rules rules;
+	
 	private static final int HUMAN        = 0; 
 	private static final int COMPUTER     = 1; 
 	public  static final int EMPTY        = 2;
@@ -26,6 +27,12 @@ public class AI {
 	-8, -24, -4, -3, -3, -4, -24, -8,
 	99,  -8,  8,  6,  6,  8,  -8, 99 };
 	
+	public int chooseMove()
+	{
+	    Best best=chooseMove(COMPUTER);
+	    return best.row*3+best.column;
+	    //return 0;
+    }
 	
 	// Find optimal move
 		private Best chooseMove( int side )
@@ -76,5 +83,17 @@ public class AI {
 			
 			return new Best(value, bestRow, bestColumn);
 	
+			class Best
+		    {
+		       int row;
+		       int column;
+		       int val;
+
+		       public Best( int v )
+		         { this( v, 0, 0 ); }
+		      
+		       public Best( int v, int r, int c )
+		        { val = v; row = r; column = c; }
+		    } 
 	
-}
+}}
