@@ -1,6 +1,7 @@
 package controller;
 
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,7 @@ import model.BoardModel;
 
 import tools.ServerConnection;
 import view.GameBoard;
+import view.TimeView;
 
 /**
  * Abstract class that forms the blueprints for a controller that receives input from 
@@ -22,10 +24,12 @@ public abstract class BoardController implements ActionListener{
 	protected BoardModel model;
 	protected String gameMode;
 	protected ServerConnection connection;
+	protected TimeView timeView;
 	
 	public BoardController(int x, int y, String gameMode, ServerConnection connection){
 		this.gameMode = gameMode;
 		this.connection = connection;
+		setTimeView(10);
 	}
 
 	/**
@@ -45,5 +49,14 @@ public abstract class BoardController implements ActionListener{
 	public void playMove(int move) {
 		board.makeMove(model.getActivePlayer(), move);
 		model.playMove(move);
+		timeView.reset();
+	}
+	
+	public void setTimeView(int time) {
+		timeView = new TimeView(time);
+	}
+	
+	public JPanel getTimeView(){
+		return timeView;
 	}
 }

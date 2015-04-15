@@ -25,17 +25,10 @@ public class ServerListener implements Runnable{
     private BufferedReader in;
     private LoginView view;
     private Player player;
-    private ChooseGameView gameView;
     private BoardController activeGame;
     private GameView activeGameView;
-    private static final int CHARACTERREMOVAL = 15;
-
-    public enum Commands {
-        LOGIN,
-        LOGOUT,
-        SUBSCRIBE,
-        MOVE
-    }
+	private ChooseGameController cgcontroller;
+	
 
 
     /**
@@ -68,7 +61,7 @@ public class ServerListener implements Runnable{
                     player = new Human(view.getLogin().getUsername());
                     view.setVisible(false);
                     view.dispose();
-                    gameView = new ChooseGameView((Human)player, connection, this);
+                    ChooseGameView gameView = new ChooseGameView((Human)player, connection, this);
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Duplicate name exists")) {
                     throw new ServerErrorException("Username already in use!");
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Already logged in")){
@@ -76,10 +69,19 @@ public class ServerListener implements Runnable{
                 /*
                  * Listen if a move has been made.
                  */
+                } else if(lastLine.contains("SVR GAME MATCH")){
+                	if(parseString(lastLine).get(0).equals("Tic-tac-toe")){
+                		cgcontroller.createGame("ttt");
+                		cgcontroller.getView().disableQueueText();
+                	} else {
+                		cgcontroller.createGame(parseString(lastLine).get(1));
+                		cgcontroller.getView().disableQueueText();
+                	}
+                
                 } else if (lastLine.contains("SVR GAME MOVE")){
                 	activeGame.getModel().setActivePlayer(false);
                 	activeGameView.updateLabel();
-                	if (!lastLine.contains(player.getName())) {
+                	if (!parseString(lastLine).get(0).equals(player.getName())) {
                 		activeGame.playMove(Integer.parseInt(lastLine.split("MOVE: ")[1].replaceAll("[^0-9]", "")));
                 	}
                 /*
@@ -98,14 +100,18 @@ public class ServerListener implements Runnable{
                  * Receive a challenge
                  */
                 } else if(lastLine.contains("SVR GAME CHALLENGE {")){
-                	String challenger = parseString(lastLine).get(4);
-                	int id = Integer.parseInt(parseString(lastLine).get(6));
-                	String gametype = parseString(lastLine).get(8);
+                	String challenger = parseString(lastLine).get(0);
+                	String gametype = parseString(lastLine).get(1);
+                	int id = Integer.parseInt(parseString(lastLine).get(2));
                 	int reply = JOptionPane.showConfirmDialog(null, challenger + " has challenged you to play " + gametype, "Challenge received!", JOptionPane.YES_NO_OPTION);
                 	if(reply == JOptionPane.YES_OPTION){
                 		connection.sendCommand("challenge accept " + id);
                 	}
                 	
+                } else if(lastLine.contains("LOSS")){
+                	JOptionPane.showMessageDialog(null, "You lose!", "Lost!", JOptionPane.CLOSED_OPTION);
+                } else if(lastLine.contains("WIN")){
+                	JOptionPane.showMessageDialog(null, "You win!", "Won!", JOptionPane.CLOSED_OPTION);
                 }
             }
         } catch (IOException e) {
@@ -122,9 +128,9 @@ public class ServerListener implements Runnable{
      */
     private LinkedList<String> parseString(String str){
     	LinkedList<String> list = new LinkedList<String>();
-    	String[] toParse = str.split("\\s+");
+    	String[] toParse = str.split(",");
     	for (int i = 0; i < toParse.length; i++) {
-    		toParse[i] = toParse[i].replace(",", "").replace("[", "").replace("]", "").replace("\"", "").replace("}", "").replace("SVR", "").replace("PLAYERLIST", "");
+    		toParse[i] = toParse[i].substring(toParse[i].indexOf("\"")+1,toParse[i].lastIndexOf("\""));
     		list.add(toParse[i]);
 		}
     	return list;
@@ -134,6 +140,10 @@ public class ServerListener implements Runnable{
 	public void setActiveGame(BoardController game, GameView gameView) {
 		activeGame = game;
 		activeGameView = gameView;
+	}
+	
+	public void setActiveChooseGameController(ChooseGameController cgcontroller){
+		this.cgcontroller = cgcontroller;
 	}
 
 }

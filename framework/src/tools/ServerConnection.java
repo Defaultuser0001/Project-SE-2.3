@@ -2,6 +2,7 @@ package tools;
 
 
 import exceptions.ServerErrorException;
+import model.Player;
 import model.Stats;
 
 import java.io.IOException;
@@ -10,14 +11,15 @@ import java.net.Socket;
 
 public class ServerConnection{
 
-	private Stats stats;
     private PrintWriter out;
     private Socket socket;
     private String lastCommand = "";
     private boolean loginSuccess = false;
+    private String playerName;
 
-    public ServerConnection(String ip, int port) {
+    public ServerConnection(String ip, int port, String playerName) {
         try {
+        	this.playerName = playerName;
             socket = new Socket(ip, port);
             out = new PrintWriter(socket.getOutputStream());
         } catch (IOException e) {
@@ -34,6 +36,10 @@ public class ServerConnection{
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public String getPlayerName(){
+    	return playerName;
     }
 
     public Socket getSocket() {

@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ChooseGameController extends JPanel implements ActionListener{
+public class ChooseGameController extends JPanel {
 
 	private ChooseGameView view;
 	private ServerConnection connection;
@@ -28,14 +28,20 @@ public class ChooseGameController extends JPanel implements ActionListener{
 	private JRadioButton othelloButton;
 	private JRadioButton tttButton;
 
-	public ChooseGameController(ServerConnection connection, ChooseGameView view, ServerListener server) {
+	private enum GameTypes {
+		REVERSI, TTT
+	}
+
+	public ChooseGameController(final ServerConnection connection,
+			final ChooseGameView view, final ServerListener server) {
 		this.view = view;
 		this.connection = connection;
 		this.server = server;
-		
+
+		server.setActiveChooseGameController(this);
+
 		JPanel pictures = new JPanel();
-		
-		
+
 		BufferedImage othello = null;
 		BufferedImage ttt = null;
 		try {
@@ -50,29 +56,30 @@ public class ChooseGameController extends JPanel implements ActionListener{
 
 		pictures.add(picLabel, BorderLayout.EAST);
 		pictures.add(picLabel2, BorderLayout.WEST);
-		
+
 		JPanel game = new JPanel();
 
 		othelloButton = new JRadioButton("Othello");
 		othelloButton.setActionCommand("othello");
 		othelloButton.setSelected(true);
-		
+
 		tttButton = new JRadioButton("Tic-Tac-Toe");
 		tttButton.setActionCommand("ttt");
-		
+
 		ButtonGroup group = new ButtonGroup();
 		group.add(othelloButton);
 		group.add(tttButton);
-		
+
 		game.add(othelloButton, BorderLayout.EAST);
 		game.add(tttButton, BorderLayout.WEST);
 
 		// Choose, player vs player || player vs AI || AI vs AI
 		JPanel games = new JPanel();
-		final JToggleButton pVSP = new JToggleButton ("Player vs. Player");
-		final JToggleButton pVSAi= new JToggleButton ("Player vs. AI");
-		final JToggleButton AiVSAi = new JToggleButton ("AI vs. AI");
-		// zorgen ervoor dat er maar 1 van de 3 aangeklikt kan zijn, weet nog op dit in 1 kan??
+		final JToggleButton pVSP = new JToggleButton("Player vs. Player");
+		final JToggleButton pVSAi = new JToggleButton("Player vs. AI");
+		final JToggleButton AiVSAi = new JToggleButton("AI vs. AI");
+		// zorgen ervoor dat er maar 1 van de 3 aangeklikt kan zijn, weet nog op
+		// dit in 1 kan??
 		pVSP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JToggleButton pVSP = (JToggleButton) e.getSource();
@@ -105,7 +112,25 @@ public class ChooseGameController extends JPanel implements ActionListener{
 		games.add(AiVSAi);
 
 		JButton search = new JButton("Search for game");
-		search.addActionListener(this);
+		search.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (othelloButton.isSelected()) {
+						connection.sendCommand("subscribe Reversi");
+						view.setQueueText();
+					} else {
+						connection.sendCommand("subscribe Tic-tac-toe");
+						view.setQueueText();
+					}
+				} catch (ServerErrorException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+		});
 		this.add(pictures);
 		this.add(game);
 		this.add(games);
@@ -113,26 +138,29 @@ public class ChooseGameController extends JPanel implements ActionListener{
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		try {
-			if(othelloButton.isSelected()){
-				OthelloController othelloController = new OthelloController(connection);
-				OthelloGameView othelloView = new OthelloGameView(view, othelloController.getBoard(), othelloController);
-				server.setActiveGame(othelloController, othelloView);
-				connection.sendCommand("subscribe Reversi");
-				System.out.println("SUBSCRIBED FOR A GAME");
-				view.setEnabled(false);
-			}  else {
-				TicTacToeController tttController = new TicTacToeController(connection);
-				TicTacToeGameView tttGameView = new TicTacToeGameView(view, tttController.getBoard(), tttController);
-				server.setActiveGame(tttController, tttGameView);
-				connection.sendCommand("subscribe Tic-tac-toe");
-				System.out.println("SUBSCRIBED FOR A GAME");
-				view.setEnabled(false);
-			}
-		} catch (ServerErrorException e1) {
-			e1.printStackTrace();
+	public void createGame(String gametype) {
+		GameTypes type = GameTypes.valueOf(gametype.toUpperCase());
+		switch (type) {
+		case REVERSI:
+			OthelloController othelloController = new OthelloController(
+					connection);
+			OthelloGameView othelloView = new OthelloGameView(view,
+					othelloController.getBoard(), othelloController, connection);
+			server.setActiveGame(othelloController, othelloView);
+			view.setEnabled(false);
+			break;
+		case TTT:
+			TicTacToeController tttController = new TicTacToeController(
+					connection);
+			TicTacToeGameView tttGameView = new TicTacToeGameView(view,
+					tttController.getBoard(), tttController, connection);
+			server.setActiveGame(tttController, tttGameView);
+			view.setEnabled(false);
 		}
 	}
+	
+	public ChooseGameView getView(){
+		return view;
+	}
+
 }
