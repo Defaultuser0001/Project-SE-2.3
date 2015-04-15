@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -34,6 +35,7 @@ public class PlayerListView extends JFrame{
 		JList<String> jlist2 = new JList<String>(model);
 	    jlist2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );    
 	    JScrollPane scrollPane2 = new JScrollPane(jlist2);
+	    scrollPane2.setPreferredSize(new Dimension(200,200));
 	    add(scrollPane2, BorderLayout.NORTH);
 	    
 	    JPanel buttons = new JPanel();
@@ -69,6 +71,7 @@ public class PlayerListView extends JFrame{
 			}
 	    	
 	    });
+	    pack();
 	    add(challenge, BorderLayout.SOUTH);
 	    setSize(300,350);
 	    setVisible(true);

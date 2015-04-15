@@ -92,27 +92,15 @@ public class ServerListener implements Runnable{
                  * Grab the playerlist
                  */
                 } else if(lastLine.contains("SVR PLAYERLIST")){
-                	//Grab all the users from the line we receive from the server. Then remove the first fifteen characters in order to get to the playernames.
-                	String[] users = lastLine.substring(CHARACTERREMOVAL).split("\\s+");
-                	LinkedList<String> list = new LinkedList<String>();
-                	for (int i = 0; i < users.length; i++) {
-                		//Removing all the interpunction
-						users[i] = users[i].replace(",", "").replace("[", "").replace("]", "").replace("\"", "").replace(player.getName(), "");
-						list.add(users[i]);
-					}
                 	//Generate a new PlayerList as soon as the button is clicked and a command was fired.
-                	PlayerListView plist = new PlayerListView(list, connection);
+                	PlayerListView plist = new PlayerListView(parseString(lastLine), connection);
                 /*
                  * Receive a challenge
                  */
                 } else if(lastLine.contains("SVR GAME CHALLENGE {")){
-                	String[] str = lastLine.split("\\s+");
-                	for (int i = 0; i < str.length; i++) {
-                		str[i] = str[i].replace(",", "").replace("[", "").replace("]", "").replace("\"", "").replace("}", "");
-					}
-                	String challenger = str[4];
-                	int id = Integer.parseInt(str[6]);
-                	String gametype = str[8];
+                	String challenger = parseString(lastLine).get(4);
+                	int id = Integer.parseInt(parseString(lastLine).get(6));
+                	String gametype = parseString(lastLine).get(8);
                 	int reply = JOptionPane.showConfirmDialog(null, challenger + " has challenged you to play " + gametype, "Challenge received!", JOptionPane.YES_NO_OPTION);
                 	if(reply == JOptionPane.YES_OPTION){
                 		connection.sendCommand("challenge accept " + id);
@@ -125,6 +113,21 @@ public class ServerListener implements Runnable{
         } catch (ServerErrorException e) {
             e.printStackTrace();
         }
+    }
+    
+    /**
+     * Parse a string to gather information from the output from the server. Dump the information in a LinkedList
+     * @param str
+     * @return
+     */
+    private LinkedList<String> parseString(String str){
+    	LinkedList<String> list = new LinkedList<String>();
+    	String[] toParse = str.split("\\s+");
+    	for (int i = 0; i < toParse.length; i++) {
+    		toParse[i] = toParse[i].replace(",", "").replace("[", "").replace("]", "").replace("\"", "").replace("}", "").replace("SVR", "").replace("PLAYERLIST", "");
+    		list.add(toParse[i]);
+		}
+    	return list;
     }
     
 
