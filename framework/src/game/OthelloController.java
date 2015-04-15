@@ -5,9 +5,11 @@ package game;
 
 import java.awt.event.ActionEvent;
 
-import tools.ServerConnection;
+import javax.swing.JOptionPane;
 
+import tools.ServerConnection;
 import controller.BoardController;
+import exceptions.ServerErrorException;
 
 /**
  * Created by Gerard on 4/13/2015.
@@ -22,11 +24,21 @@ public class OthelloController extends BoardController {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	//OthelloBoard board = (OthelloBoard) e.getSource();
-		
+    	int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
-		//dit is nog testcode
-		board.makeMove(board.PLAYER1, move);
-		System.out.println(e.getActionCommand());
+		if(model.playMove(move)){
+			board.makeMove(board.PLAYER1, move);
+			try{
+				connection.sendCommand("MOVE " + move);
+			} catch (ServerErrorException e1){
+				e1.printStackTrace();
+			}
+		}
+		else JOptionPane.showMessageDialog(board, "Illegal move");
+		
+		
+		for(Integer i : model.possibleMoves(model.side)){
+			System.out.println(i.toString());
+		}
     }
 }

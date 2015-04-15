@@ -1,6 +1,7 @@
 package game;
 
 
+
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
@@ -36,6 +37,7 @@ public class TicTacToeController extends BoardController{
 		if(model.isMyTurn()){
 			if(model.playMove(move)) {
 				board.makeMove(player, move);
+				timeView.reset();
 				try {
 					connection.sendCommand("MOVE " + move);
 					

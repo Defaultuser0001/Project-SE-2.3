@@ -31,6 +31,7 @@ public abstract class GameView extends JFrame {
 		label.setPreferredSize(new Dimension(100,30));
 		add(label, BorderLayout.NORTH);
 		add(board, BorderLayout.CENTER);
+		add(controller.getTimeView(), BorderLayout.SOUTH);
 		setVisible(true);
 		setPreferredSize(new Dimension(700,700));
 		pack();

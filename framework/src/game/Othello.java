@@ -12,6 +12,11 @@ public class Othello extends BoardModel{
 
 	public Othello() {
 		super(8, 8);
+		board[27] = 1;
+		board[26] = 2;
+		board[25] = 2;
+		board[24] = 0;
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -86,40 +91,227 @@ public class Othello extends BoardModel{
 		
 		return false;	
 	}
-	public ArrayList<Integer> possibleMoves(){
-		ArrayList<Integer> player = new ArrayList<Integer>();
-		ArrayList<Integer> moves = new ArrayList<Integer>();
+	
+	
+/*	findLeft(int 8, player, int opponentpossitions,  boolean first){
+		player = player;
+			if(position == empty && opponent positions > 0){
+			add possible move;
+			return true;
+		}
+		Else if( first ){
+			Player = Getopponent(player);	
+		}
+		Else if(er zijn plaatsen links ){
+			If(position = player){
+			Opponentpossitions++;
+		}
+			findLeft( “ een links van 8”, player, false, false)
+		}
+		Return false;
+		}
+*/
+	private int findPossibleMovesUpLeft(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return -9;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition % 8) > 0 && (possition / 8) >0){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition -9 , opponentPossitions, posSide, false);
+		}
+		return -9;
+	}
+	
+	private int findPossibleUp(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return -8;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition / 8) > 0){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition -8 , opponentPossitions, posSide, false);
+		}
+		return -8;
+	}
+	
+	private int findPossibleUpRight(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return -7;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition / 8) > 0 && (possition % 8) < 7){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition -7 , opponentPossitions, posSide, false);
+		}
+		return -7;
+	}
+	
+	private int findPossibleMovesLeft(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return -1;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition % 8) > 0){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition -1 , opponentPossitions, posSide, false);
+		}
+		return -1;
+	}
+	
+
+	private int findPossibleMovesRight(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return +1;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition % 8) < 7){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition +1 , opponentPossitions, posSide, false);
+		}
+		return +1;
+	}
+	
+	private int findPossibleMovesDownLeft(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return +7;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition % 8) > 0 && (possition / 8) < 7){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition +7 , opponentPossitions, posSide, false);
+		}
+		return +7;
+	}
+	
+	private int findPossibleMovesDown(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return +1;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition / 8) < 7){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition +1 , opponentPossitions, posSide, false);
+		}
+		return +1;
+	}
+	
+	private int findPossibleMovesDownRight(int possition, int opponentPossitions, int player, boolean first){
+		int posSide = player;
+		if (first == false && board[possition] == getOpponent(posSide) ) {
+			return +1;
+		} else if (board[possition] == EMPTY && opponentPossitions > 0) {
+			return possition;
+		} else {
+			posSide = getOpponent(posSide);
+		}
+		if((possition / 8) < 7 && (possition % 8) < 7){
+			if(board[possition] == posSide){
+				opponentPossitions++;
+			}
+			findPossibleMovesLeft(possition +1 , opponentPossitions, posSide, false);
+		}
+		return +1;
+	}
+	
+	
+	
+	private int getOpponent(int side){
+		if(side == PLAYER1) {
+			return PLAYER2;
+		} else {
+			return PLAYER1;
+		}
+	}
+	
+	public ArrayList<Integer> possibleMoves(int side){
+		ArrayList<Integer> moves = new ArrayList<Integer>(); 
 		for(int i : board){
 			if(i == side){
-				player.add(i);
+				int j = findPossibleMovesLeft(27,0,1,true);
+				if(j >= 0){
+					moves.add(j);
+				}
 			}
 		}
-		checkHorizontal(27);
 		return moves;
 	}
+	/*
 	// modulo = horizontal
 	// divide = vertical
 	public ArrayList<Integer> checkHorizontal(int pos){
 		ArrayList<Integer> moves = new ArrayList<Integer>();
 		int i = pos / 8;
 		int emptyPositions = 0;
-		int p1Possitions = 0;
-		int p2Possitions = 0;
+		int p1Positions = 0;
+		int p2Positions = 0;
 		for(int j = (i * 8); j < i*8+7; j++){
-			if(board[j] == EMPTY)
+			switch(board[j]){
+			case 0:
 				emptyPositions++;
+			break;
+			case 1:
+				p1Positions++;
+			break;
+			case 2:
+				p2Positions++;
+			break;	
+			}		
+		
 			moves.add(j);
 		}
 		if(emptyPositions == 0)
 			return null;
-		else
-			for(int move: moves){
-				//TODO Remove moves that are not possible moves.
-				
-			}
+		else if(p1Positions == 7 || p2Positions == 7){
+			return null;
+		}
+		if()
+			
 		
 		return moves;
-	}	
+	}	*/
 	
 	public ArrayList<Integer> checkVertical(int pos){
 		ArrayList<Integer> moves = new ArrayList<Integer>();
@@ -134,6 +326,5 @@ public class Othello extends BoardModel{
 		return moves;
 	}
 	//een methode om een lijst te genereren die alle mogelijke zettenvat | linked list van integers
-
 	
 }

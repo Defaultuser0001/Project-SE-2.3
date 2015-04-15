@@ -15,7 +15,7 @@ public abstract class BoardModel {
 	public static final int UNCLEAR = 2;
 	
 	protected int[] board;
-	protected int side;
+	public int side;
 	private boolean myTurn = false;
 	
 	protected Player player1;
@@ -57,9 +57,6 @@ public abstract class BoardModel {
 		return myTurn;
 	}
 
-	public ArrayList<Integer> possibleMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract ArrayList<Integer> possibleMoves(int side);
 }
 

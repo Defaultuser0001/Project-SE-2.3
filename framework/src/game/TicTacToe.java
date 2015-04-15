@@ -112,7 +112,7 @@ public class TicTacToe extends BoardModel {
 	}
 
 	@Override
-	public ArrayList<Integer> possibleMoves() {
+	public ArrayList<Integer> possibleMoves(int side) {
 		return null;
 	}
 	

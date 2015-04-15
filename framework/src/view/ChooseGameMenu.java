@@ -13,7 +13,7 @@ import tools.ServerConnection;
 public class ChooseGameMenu extends JMenuBar{
 	
 
-	public ChooseGameMenu(ServerConnection connection){
+	public ChooseGameMenu(final ServerConnection connection){
         JMenu tab1 = new JMenu("Options");
         JMenuItem playerList = new JMenuItem("Playerlist");
         playerList.addActionListener(new ActionListener() {
