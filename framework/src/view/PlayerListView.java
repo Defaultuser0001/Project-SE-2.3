@@ -24,7 +24,7 @@ public class PlayerListView extends JFrame{
 	
 	private LinkedList<String> playerList;
 	
-	public PlayerListView(LinkedList<String> playerlist, ServerConnection connection){
+	public PlayerListView(LinkedList<String> playerlist, final ServerConnection connection){
 		//cba making a separate controller class for this
 		super("Online players");
 		this.playerList = playerlist;
@@ -32,7 +32,7 @@ public class PlayerListView extends JFrame{
 		for (int i = 0; i < playerList.size(); i++) {
 			model.addElement(playerList.get(i));
 		}
-		JList<String> jlist2 = new JList<String>(model);
+		final JList<String> jlist2 = new JList<String>(model);
 	    jlist2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );    
 	    JScrollPane scrollPane2 = new JScrollPane(jlist2);
 	    scrollPane2.setPreferredSize(new Dimension(200,200));
@@ -47,7 +47,7 @@ public class PlayerListView extends JFrame{
 		JRadioButton tttButton = new JRadioButton("Tic-Tac-Toe");
 		tttButton.setActionCommand("Tic-tac-toe");
 		
-		ButtonGroup group = new ButtonGroup();
+		final ButtonGroup group = new ButtonGroup();
 		group.add(othelloButton);
 		group.add(tttButton);
 		

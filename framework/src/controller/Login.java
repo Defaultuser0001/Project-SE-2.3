@@ -20,7 +20,7 @@ public class Login extends JPanel {
     private String username;
     private Lock lock = new ReentrantLock();
 
-    public Login(LoginView view) throws IOException {
+    public Login(final LoginView view) throws IOException {
         this.view = view;
         JButton button = new JButton("Log in");
         button.addActionListener(new ActionListener(){

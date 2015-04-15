@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import ttt.TicTacToe.Best;
 
 public class AI {
 
@@ -25,56 +24,6 @@ public class AI {
 	 8,  -4,  7,  4,  4,  7,  -4,  8,
 	-8, -24, -4, -3, -3, -4, -24, -8,
 	99,  -8,  8,  6,  6,  8,  -8, 99 };
-	
-	
-	// Find optimal move
-		private Best chooseMove( int side )
-		{
-			int opp;              // The other side
-			Best reply;           // Opponent's best reply
-			int simpleEval;       // Result of an immediate evaluation
-			int bestRow = 0;
-			int bestColumn = 0;
-			int value;
-
-			if( ( simpleEval = positionValue( ) ) != UNCLEAR )
-				return new Best( simpleEval );
-
-			if (side == HUMAN) opp = COMPUTER;
-			else opp = HUMAN;
-			
-
-			// TODO: implementeren m.b.v. recursie/backtracking
-			
-			
-			int i = 0;
-			while (!squareIsEmpty(i/3, i%3)){
-				i++;
-			}
-			
-			place(i/3, i%3, side);
-			reply = chooseMove(opp);
-			value = reply.val;
-			bestRow = i/3;
-			bestColumn = i%3;
-			place(i/3, i%3, EMPTY);
-			i++;
-			
-			while (i < 9){
-				if (squareIsEmpty(i/3, i%3)){
-					place(i/3, i%3, side);
-					reply = chooseMove(opp);
-					if((value < reply.val && side == COMPUTER) || (value > reply.val && side == HUMAN)){
-						value = reply.val;
-						bestRow = i/3;
-						bestColumn = i%3;
-					}
-					place(i/3, i%3, EMPTY);
-				}
-				i++;
-			}
-			
-			return new Best(value, bestRow, bestColumn);
 	
 	
 }
