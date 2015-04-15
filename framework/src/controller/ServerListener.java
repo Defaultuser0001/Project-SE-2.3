@@ -70,7 +70,7 @@ public class ServerListener implements Runnable{
                  * Listen if a move has been made.
                  */
                 } else if(lastLine.contains("SVR GAME MATCH")){
-                	if(parseString(lastLine).get(1).equals("Tic-tac-toe")){
+                	if(parseString(lastLine).get(0).equals("Tic-tac-toe")){
                 		cgcontroller.createGame("ttt");
                 		cgcontroller.getView().disableQueueText();
                 	} else {
