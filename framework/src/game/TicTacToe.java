@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -112,7 +113,7 @@ public class TicTacToe extends BoardModel {
 	}
 
 	@Override
-	public ArrayList<Integer> possibleMoves(int side) {
+	public HashMap<Integer, ArrayList<Integer>> possibleMoves(int side) {
 		return null;
 	}
 	

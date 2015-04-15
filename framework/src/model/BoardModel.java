@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public abstract class BoardModel {
@@ -57,6 +58,6 @@ public abstract class BoardModel {
 		return myTurn;
 	}
 
-	public abstract ArrayList<Integer> possibleMoves(int side);
+	public abstract HashMap<Integer, ArrayList<Integer>> possibleMoves(int side);
 }
 

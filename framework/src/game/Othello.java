@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import model.BoardModel;
 import model.Player;
@@ -30,7 +31,13 @@ public class Othello extends BoardModel{
 
 	@Override
 	protected boolean isValidMove(int move) {
-		return possibleMoves(getActivePlayer()).contains(move);
+		for (Entry<Integer, ArrayList<Integer>> entry : possibleMoves(getActivePlayer()).entrySet())
+		{
+		  if(entry.getValue().contains(move)){
+			  return true;
+		  }
+		}
+		return false;
 	}
 
 	@Override
@@ -97,7 +104,7 @@ public class Othello extends BoardModel{
 		HashMap<Integer , ArrayList<Integer>> flippableMoves = new HashMap<Integer, ArrayList<Integer>>();
 		if (first == false && board[possition] == getOpponent(posSide) ) {
 			return null;
-		} else if (board[possition] == EMPTY && !moves.isEmpty()) {
+		} else if (board[possition] == EMPTY && moves.size() > 0) {
 			flippableMoves.put(possition, moves);
 			return flippableMoves;
 		} else if (first) {
@@ -105,14 +112,14 @@ public class Othello extends BoardModel{
 		}
 		if((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0){
 			if(board[possition] == posSide){
-				moves.add(possition);
+				if(!moves.contains(possition)){
+					moves.add(possition);
+				}
 			}
-			return findPossibleMoves(possition, stappen, moves, posSide, false);
+			return findPossibleMoves(possition + stappen, stappen, moves, posSide, false);
 		}
 		return null;
 	}
-	
-	
 	
 	private int getOpponent(int side){
 		if(side == PLAYER1) {
@@ -122,22 +129,15 @@ public class Othello extends BoardModel{
 		}
 	}
 	
-	public ArrayList<Integer> possibleMoves(int side){
-		ArrayList<Integer> moves = new ArrayList<Integer>(); 
+	public HashMap<Integer, ArrayList<Integer>> possibleMoves(int side){
+		HashMap<Integer , ArrayList<Integer>> possiblemoves = new HashMap<Integer, ArrayList<Integer>>();
 		int count = 0;
 		for(int i : board){
 			if(i == side){
-/*				moves = findPossibleMove(findPossibleMovesUpLeft(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesUp(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesUpRight(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesLeft(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesRight(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesDownLeft(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesDown(count, 0, side, true), moves);
-				moves = findPossibleMove(findPossibleMovesDownRight(count, 0, side, true), moves);		*/
+				possiblemoves.putAll(findPossibleMoves(count, -9, new ArrayList<Integer>(), side, true));	
 			}
 			count++;
 		}
-		return moves;
+		return possiblemoves;
 	}
 }

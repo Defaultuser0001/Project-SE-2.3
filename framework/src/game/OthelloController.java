@@ -5,6 +5,7 @@ package game;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
@@ -21,7 +22,11 @@ public class OthelloController extends BoardController {
         super(8, 8, "Othello", connection);
 		model = new Othello();
 		board = new OthelloBoard(this);
-		ArrayList<Integer> possibleMoves = model.possibleMoves(model.getActivePlayer()); 
+		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+		for (Entry<Integer, ArrayList<Integer>> entry : model.possibleMoves(model.getActivePlayer()).entrySet())
+		{
+			possibleMoves.add(entry.getKey());
+		}		
 		OthelloBoard board1 = (OthelloBoard) board;
 		board1.hilightMoves(possibleMoves);
     }
@@ -41,7 +46,11 @@ public class OthelloController extends BoardController {
 			}
 		}
 		else JOptionPane.showMessageDialog(board, "Illegal move");
-		ArrayList<Integer> possibleMoves = model.possibleMoves(model.getActivePlayer()); 
+		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+		for (Entry<Integer, ArrayList<Integer>> entry : model.possibleMoves(model.getActivePlayer()).entrySet())
+		{
+			possibleMoves.add(entry.getKey());
+		}		
 		board1.hilightMoves(possibleMoves);
 		
 		
