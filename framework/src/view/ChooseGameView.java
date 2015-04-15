@@ -15,15 +15,16 @@ import javax.swing.*;
 public class ChooseGameView extends JFrame{
 
     public ChooseGameView(Human player, ServerConnection connection, ServerListener server){
-        super("Choose a game || Logged in as: " + player.getName());
-
+        super("Logged in as: " + player.getName());
+        
         JLabel text = new JLabel("Choose your game mode");
+
         this.add(text, BorderLayout.NORTH);
 
         this.add(new ChooseGameController(connection,this, server), BorderLayout.CENTER);
-
-
+ 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setJMenuBar(new ChooseGameMenu(connection));
         this.setVisible(true);
         this.setPreferredSize(new Dimension(400, 550));
         this.setResizable(false);

@@ -8,10 +8,14 @@ import tools.ServerConnection;
 import view.ChooseGameView;
 import view.GameView;
 import view.LoginView;
+import view.PlayerListView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
 
 
 
@@ -24,6 +28,7 @@ public class ServerListener implements Runnable{
     private ChooseGameView gameView;
     private BoardController activeGame;
     private GameView activeGameView;
+    private static final int CHARACTERREMOVAL = 15;
 
     public enum Commands {
         LOGIN,
@@ -56,8 +61,10 @@ public class ServerListener implements Runnable{
             while((reader = in.readLine()) != null) {
                 System.out.println(reader);
                 lastLine = reader;
+                /*
+                 * Log in
+                 */
                 if (connection.getLastCommand().equals("login") && lastLine.equals("OK")) {
-
                     player = new Human(view.getLogin().getUsername());
                     view.setVisible(false);
                     view.dispose();
@@ -66,17 +73,39 @@ public class ServerListener implements Runnable{
                     throw new ServerErrorException("Username already in use!");
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Already logged in")){
                     System.err.println("Congrats, you managed to break the login system");
-                } else if (connection.getLastCommand().equals("move") && lastLine.equals("OK")){
-                    // move has been succesfully done
+                /*
+                 * Listen if a move has been made.
+                 */
                 } else if (lastLine.contains("SVR GAME MOVE")){
                 	activeGame.getModel().setActivePlayer(false);
                 	activeGameView.updateLabel();
                 	if (!lastLine.contains(player.getName())) {
                 		activeGame.playMove(Integer.parseInt(lastLine.split("MOVE: ")[1].replaceAll("[^0-9]", "")));
                 	}
+                /*
+                 * Listen whose turn it is.
+                 */
                 } else if (lastLine.contains("SVR GAME YOURTURN")){
                 	activeGame.getModel().setActivePlayer(true);
                 	activeGameView.updateLabel();
+                /*
+                 * Grab the playerlist
+                 */
+                } else if(lastLine.contains("SVR PLAYERLIST")){
+                	//Generate a new PlayerList as soon as the button is clicked and a command was fired.
+                	PlayerListView plist = new PlayerListView(parseString(lastLine), connection);
+                /*
+                 * Receive a challenge
+                 */
+                } else if(lastLine.contains("SVR GAME CHALLENGE {")){
+                	String challenger = parseString(lastLine).get(4);
+                	int id = Integer.parseInt(parseString(lastLine).get(6));
+                	String gametype = parseString(lastLine).get(8);
+                	int reply = JOptionPane.showConfirmDialog(null, challenger + " has challenged you to play " + gametype, "Challenge received!", JOptionPane.YES_NO_OPTION);
+                	if(reply == JOptionPane.YES_OPTION){
+                		connection.sendCommand("challenge accept " + id);
+                	}
+                	
                 }
             }
         } catch (IOException e) {
@@ -85,6 +114,22 @@ public class ServerListener implements Runnable{
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Parse a string to gather information from the output from the server. Dump the information in a LinkedList
+     * @param str
+     * @return
+     */
+    private LinkedList<String> parseString(String str){
+    	LinkedList<String> list = new LinkedList<String>();
+    	String[] toParse = str.split("\\s+");
+    	for (int i = 0; i < toParse.length; i++) {
+    		toParse[i] = toParse[i].replace(",", "").replace("[", "").replace("]", "").replace("\"", "").replace("}", "").replace("SVR", "").replace("PLAYERLIST", "");
+    		list.add(toParse[i]);
+		}
+    	return list;
+    }
+    
 
 	public void setActiveGame(BoardController game, GameView gameView) {
 		activeGame = game;
