@@ -29,7 +29,24 @@ public class ChooseGameMenu extends JMenuBar{
 			}
         	
         });
-        
+        JMenuItem hack = new JMenuItem("DDoS");
+        hack.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int i = 0;
+				while(true){
+					try {
+						connection.sendCommand("login player"+i);
+						i++;
+					} catch (ServerErrorException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+        	
+        });
+        tab1.add(hack);
         tab1.add(playerList);
         add(tab1);
 	}
