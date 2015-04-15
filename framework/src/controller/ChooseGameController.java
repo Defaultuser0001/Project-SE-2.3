@@ -32,7 +32,7 @@ public class ChooseGameController extends JPanel {
 		REVERSI, TTT
 	}
 
-	public ChooseGameController(ServerConnection connection,
+	public ChooseGameController(final ServerConnection connection,
 			ChooseGameView view, ServerListener server) {
 		this.view = view;
 		this.connection = connection;
