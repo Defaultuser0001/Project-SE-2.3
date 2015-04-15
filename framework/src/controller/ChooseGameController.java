@@ -37,6 +37,8 @@ public class ChooseGameController extends JPanel {
 		this.view = view;
 		this.connection = connection;
 		this.server = server;
+		
+		this.setLayout(new FlowLayout());
 
 		server.setActiveChooseGameController(this);
 
@@ -77,7 +79,7 @@ public class ChooseGameController extends JPanel {
 		JPanel games = new JPanel();
 		final JToggleButton pVSP = new JToggleButton("Player vs. Player");
 		final JToggleButton pVSAi = new JToggleButton("Player vs. AI");
-		final JToggleButton AiVSAi = new JToggleButton("AI vs. AI");
+
 		// zorgen ervoor dat er maar 1 van de 3 aangeklikt kan zijn, weet nog op
 		// dit in 1 kan??
 		pVSP.addActionListener(new ActionListener() {
@@ -85,7 +87,6 @@ public class ChooseGameController extends JPanel {
 				JToggleButton pVSP = (JToggleButton) e.getSource();
 				if (pVSP.isSelected()) {
 					pVSAi.setSelected(false);
-					AiVSAi.setSelected(false);
 				}
 			}
 		});
@@ -94,22 +95,12 @@ public class ChooseGameController extends JPanel {
 				JToggleButton pVSAi = (JToggleButton) e.getSource();
 				if (pVSAi.isSelected()) {
 					pVSP.setSelected(false);
-					AiVSAi.setSelected(false);
-				}
-			}
-		});
-		AiVSAi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JToggleButton AiVSAi = (JToggleButton) e.getSource();
-				if (AiVSAi.isSelected()) {
-					pVSP.setSelected(false);
-					pVSAi.setSelected(false);
 				}
 			}
 		});
 		games.add(pVSP);
 		games.add(pVSAi);
-		games.add(AiVSAi);
+		games.setSize(600,600);
 
 		JButton search = new JButton("Search for game");
 		search.addActionListener(new ActionListener() {
@@ -135,6 +126,8 @@ public class ChooseGameController extends JPanel {
 		this.add(game);
 		this.add(games);
 		this.add(search);
+		view.pack();
+		
 
 	}
 

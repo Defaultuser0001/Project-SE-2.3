@@ -70,7 +70,7 @@ public class ServerListener implements Runnable{
                  * Listen if a move has been made.
                  */
                 } else if(lastLine.contains("SVR GAME MATCH")){
-                	if(parseString(lastLine).get(0).equals("Tic-tac-toe")){
+                	if(parseString(lastLine).get(1).equals("Tic-tac-toe")){
                 		cgcontroller.createGame("ttt");
                 		cgcontroller.getView().disableQueueText();
                 	} else {
@@ -110,8 +110,16 @@ public class ServerListener implements Runnable{
                 	
                 } else if(lastLine.contains("LOSS")){
                 	JOptionPane.showMessageDialog(null, "You lose!", "Lost!", JOptionPane.CLOSED_OPTION);
+                	activeGameView.dispose();
+                	cgcontroller.getView().setEnabled(true);
                 } else if(lastLine.contains("WIN")){
                 	JOptionPane.showMessageDialog(null, "You win!", "Won!", JOptionPane.CLOSED_OPTION);
+                	activeGameView.dispose();
+                	cgcontroller.getView().setEnabled(true);
+                } else if(lastLine.contains("DRAW")){
+                	JOptionPane.showMessageDialog(null, "It's a draw!", "Draw!", JOptionPane.CLOSED_OPTION);
+                	activeGameView.dispose();
+                	cgcontroller.getView().setEnabled(true);
                 }
             }
         } catch (IOException e) {

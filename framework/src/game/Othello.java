@@ -265,6 +265,7 @@ public class Othello extends BoardModel{
 	}
 	
 	
+	
 	public ArrayList<Integer> findPossibleMove(Integer move, ArrayList<Integer> moves){
 		if(move > 0 && !moves.contains(move)){
 			moves.add(move);
