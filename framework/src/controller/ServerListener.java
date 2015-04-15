@@ -25,17 +25,9 @@ public class ServerListener implements Runnable{
     private BufferedReader in;
     private LoginView view;
     private Player player;
-    private ChooseGameView gameView;
     private BoardController activeGame;
     private GameView activeGameView;
-    private static final int CHARACTERREMOVAL = 15;
-
-    public enum Commands {
-        LOGIN,
-        LOGOUT,
-        SUBSCRIBE,
-        MOVE
-    }
+	private ChooseGameController cgcontroller;
 
 
     /**
@@ -68,7 +60,7 @@ public class ServerListener implements Runnable{
                     player = new Human(view.getLogin().getUsername());
                     view.setVisible(false);
                     view.dispose();
-                    gameView = new ChooseGameView((Human)player, connection, this);
+                    ChooseGameView gameView = new ChooseGameView((Human)player, connection, this);
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Duplicate name exists")) {
                     throw new ServerErrorException("Username already in use!");
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Already logged in")){
@@ -76,10 +68,17 @@ public class ServerListener implements Runnable{
                 /*
                  * Listen if a move has been made.
                  */
+                } else if(lastLine.contains("SVR GAME MATCH")){
+                	if(parseString(lastLine).get(6).equals("Tic-tac-toe")){
+                		cgcontroller.createGame("ttt");
+                	} else {
+                		cgcontroller.createGame(parseString(lastLine).get(6));
+                	}
+                
                 } else if (lastLine.contains("SVR GAME MOVE")){
                 	activeGame.getModel().setActivePlayer(false);
                 	activeGameView.updateLabel();
-                	if (!lastLine.contains(player.getName())) {
+                	if (!parseString(lastLine).get(4).equals(player.getName())) {
                 		activeGame.playMove(Integer.parseInt(lastLine.split("MOVE: ")[1].replaceAll("[^0-9]", "")));
                 	}
                 /*
@@ -106,6 +105,10 @@ public class ServerListener implements Runnable{
                 		connection.sendCommand("challenge accept " + id);
                 	}
                 	
+                } else if(lastLine.contains("LOSS")){
+                	JOptionPane.showMessageDialog(null, "You lose!", "lost", JOptionPane.CLOSED_OPTION);
+                } else if(lastLine.contains("WIN")){
+                	JOptionPane.showMessageDialog(null, "You win!", "won", JOptionPane.CLOSED_OPTION);
                 }
             }
         } catch (IOException e) {
@@ -134,6 +137,10 @@ public class ServerListener implements Runnable{
 	public void setActiveGame(BoardController game, GameView gameView) {
 		activeGame = game;
 		activeGameView = gameView;
+	}
+	
+	public void setActiveChooseGameController(ChooseGameController cgcontroller){
+		this.cgcontroller = cgcontroller;
 	}
 
 }

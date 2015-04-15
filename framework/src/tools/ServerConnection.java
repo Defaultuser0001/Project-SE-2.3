@@ -10,7 +10,6 @@ import java.net.Socket;
 
 public class ServerConnection{
 
-	private Stats stats;
     private PrintWriter out;
     private Socket socket;
     private String lastCommand = "";
