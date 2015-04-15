@@ -89,6 +89,17 @@ public class OthelloBoard extends GameBoard{
 			tiles.get(move).setBlack();
 		}
 	}
+	
+	public void hilightMoves(ArrayList<Integer> moves){
+		for(Integer move : moves){
+			tiles.get(move).hilightTileBg();
+		}
+	}
+	public void resetBoardBg(){
+		for(Tile tile : tiles){
+			tile.resetTileBg();
+		}
+	}
 
 	/**
 	 * private inner class
@@ -99,6 +110,9 @@ public class OthelloBoard extends GameBoard{
 
 		private ImageIcon white = new ImageIcon("./res/Othello/Othello_white.png");
 		private ImageIcon black = new ImageIcon("./res/Othello/Othello_black.png");
+		
+		private Color normalbg = new Color(0,155,0);
+		private Color hilightedbg = new Color(0, 200, 0);
 		
 		private int move;
 		
@@ -118,6 +132,13 @@ public class OthelloBoard extends GameBoard{
 		
 		public int getMove(){
 			return move;
+		}
+		
+		public void hilightTileBg(){
+			setBackground(hilightedbg);
+		}
+		public void resetTileBg(){
+			setBackground(normalbg);
 		}
 		
 	}

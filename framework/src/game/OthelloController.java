@@ -4,6 +4,7 @@ package game;
 
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -20,14 +21,19 @@ public class OthelloController extends BoardController {
         super(8, 8, "Othello", connection);
 		model = new Othello();
 		board = new OthelloBoard(this);
+		ArrayList<Integer> possibleMoves = model.possibleMoves(model.getActivePlayer()); 
+		OthelloBoard board1 = (OthelloBoard) board;
+		board1.hilightMoves(possibleMoves);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	OthelloBoard board1 = (OthelloBoard) board;
+    	board1.resetBoardBg();
     	int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
 		if(model.playMove(move)){
-			board.makeMove(board.PLAYER1, move);
+			board.makeMove(model.getActivePlayer(), move);
 			try{
 				connection.sendCommand("MOVE " + move);
 			} catch (ServerErrorException e1){
@@ -35,10 +41,9 @@ public class OthelloController extends BoardController {
 			}
 		}
 		else JOptionPane.showMessageDialog(board, "Illegal move");
+		ArrayList<Integer> possibleMoves = model.possibleMoves(model.getActivePlayer()); 
+		board1.hilightMoves(possibleMoves);
 		
 		
-		for(Integer i : model.possibleMoves(model.side)){
-			System.out.println(i.toString());
-		}
     }
 }
