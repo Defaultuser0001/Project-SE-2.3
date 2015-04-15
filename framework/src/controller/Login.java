@@ -27,7 +27,7 @@ public class Login extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				connection = new ServerConnection(view.getIP(), view.getPort());
+				connection = new ServerConnection(view.getIP(), view.getPort(), view.getCurrentName());
             	Thread thread = new Thread(new ServerListener(connection, view));
                 thread.start();
                 username = view.getCurrentName();
@@ -49,4 +49,3 @@ public class Login extends JPanel {
     }
 
 }
-

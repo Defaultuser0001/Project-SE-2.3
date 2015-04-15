@@ -28,6 +28,7 @@ public class ServerListener implements Runnable{
     private BoardController activeGame;
     private GameView activeGameView;
 	private ChooseGameController cgcontroller;
+	
 
 
     /**
@@ -69,16 +70,18 @@ public class ServerListener implements Runnable{
                  * Listen if a move has been made.
                  */
                 } else if(lastLine.contains("SVR GAME MATCH")){
-                	if(parseString(lastLine).get(6).equals("Tic-tac-toe")){
+                	if(parseString(lastLine).get(1).equals("Tic-tac-toe")){
                 		cgcontroller.createGame("ttt");
+                		cgcontroller.getView().disableQueueText();
                 	} else {
-                		cgcontroller.createGame(parseString(lastLine).get(6));
+                		cgcontroller.createGame(parseString(lastLine).get(1));
+                		cgcontroller.getView().disableQueueText();
                 	}
                 
                 } else if (lastLine.contains("SVR GAME MOVE")){
                 	activeGame.getModel().setActivePlayer(false);
                 	activeGameView.updateLabel();
-                	if (!parseString(lastLine).get(4).equals(player.getName())) {
+                	if (!parseString(lastLine).get(0).equals(player.getName())) {
                 		activeGame.playMove(Integer.parseInt(lastLine.split("MOVE: ")[1].replaceAll("[^0-9]", "")));
                 	}
                 /*
@@ -97,18 +100,18 @@ public class ServerListener implements Runnable{
                  * Receive a challenge
                  */
                 } else if(lastLine.contains("SVR GAME CHALLENGE {")){
-                	String challenger = parseString(lastLine).get(4);
-                	int id = Integer.parseInt(parseString(lastLine).get(6));
-                	String gametype = parseString(lastLine).get(8);
+                	String challenger = parseString(lastLine).get(0);
+                	int id = Integer.parseInt(parseString(lastLine).get(1));
+                	String gametype = parseString(lastLine).get(2);
                 	int reply = JOptionPane.showConfirmDialog(null, challenger + " has challenged you to play " + gametype, "Challenge received!", JOptionPane.YES_NO_OPTION);
                 	if(reply == JOptionPane.YES_OPTION){
                 		connection.sendCommand("challenge accept " + id);
                 	}
                 	
                 } else if(lastLine.contains("LOSS")){
-                	JOptionPane.showMessageDialog(null, "You lose!", "lost", JOptionPane.CLOSED_OPTION);
+                	JOptionPane.showMessageDialog(null, "You lose!", "Lost!", JOptionPane.CLOSED_OPTION);
                 } else if(lastLine.contains("WIN")){
-                	JOptionPane.showMessageDialog(null, "You win!", "won", JOptionPane.CLOSED_OPTION);
+                	JOptionPane.showMessageDialog(null, "You win!", "Won!", JOptionPane.CLOSED_OPTION);
                 }
             }
         } catch (IOException e) {
@@ -125,9 +128,9 @@ public class ServerListener implements Runnable{
      */
     private LinkedList<String> parseString(String str){
     	LinkedList<String> list = new LinkedList<String>();
-    	String[] toParse = str.split("\\s+");
+    	String[] toParse = str.split(",");
     	for (int i = 0; i < toParse.length; i++) {
-    		toParse[i] = toParse[i].replace(",", "").replace("[", "").replace("]", "").replace("\"", "").replace("}", "").replace("SVR", "").replace("PLAYERLIST", "");
+    		toParse[i] = toParse[i].substring(toParse[i].indexOf("\"")+1,toParse[i].lastIndexOf("\""));
     		list.add(toParse[i]);
 		}
     	return list;

@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ChooseGameController extends JPanel implements ActionListener {
+public class ChooseGameController extends JPanel {
 
 	private ChooseGameView view;
 	private ServerConnection connection;
@@ -112,21 +112,24 @@ public class ChooseGameController extends JPanel implements ActionListener {
 		games.add(AiVSAi);
 
 		JButton search = new JButton("Search for game");
-		search.addActionListener(new ActionListener(){
+		search.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (othelloButton.isSelected()) 
+					if (othelloButton.isSelected()) {
 						connection.sendCommand("subscribe Reversi");
-					else 
-						connection.sendCommand("subscribe Tic-tac-toe");		
+						view.setQueueText();
+					} else {
+						connection.sendCommand("subscribe Tic-tac-toe");
+						view.setQueueText();
+					}
 				} catch (ServerErrorException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-			
+
 		});
 		this.add(pictures);
 		this.add(game);
@@ -139,26 +142,25 @@ public class ChooseGameController extends JPanel implements ActionListener {
 		GameTypes type = GameTypes.valueOf(gametype.toUpperCase());
 		switch (type) {
 		case REVERSI:
-				OthelloController othelloController = new OthelloController(
-						connection);
-				OthelloGameView othelloView = new OthelloGameView(view,
-						othelloController.getBoard(), othelloController);
-				server.setActiveGame(othelloController, othelloView);
-				view.setEnabled(false);
+			OthelloController othelloController = new OthelloController(
+					connection);
+			OthelloGameView othelloView = new OthelloGameView(view,
+					othelloController.getBoard(), othelloController, connection);
+			server.setActiveGame(othelloController, othelloView);
+			view.setEnabled(false);
 			break;
 		case TTT:
-				TicTacToeController tttController = new TicTacToeController(
-						connection);
-				TicTacToeGameView tttGameView = new TicTacToeGameView(view,
-						tttController.getBoard(), tttController);
-				server.setActiveGame(tttController, tttGameView);
-				view.setEnabled(false);
+			TicTacToeController tttController = new TicTacToeController(
+					connection);
+			TicTacToeGameView tttGameView = new TicTacToeGameView(view,
+					tttController.getBoard(), tttController, connection);
+			server.setActiveGame(tttController, tttGameView);
+			view.setEnabled(false);
 		}
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
 	
+	public ChooseGameView getView(){
+		return view;
+	}
+
 }
