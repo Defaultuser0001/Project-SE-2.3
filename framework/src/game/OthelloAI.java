@@ -32,8 +32,14 @@ public class OthelloAI {
 	 8,  -4,  7,  4,  4,  7,  -4,  8,
 	-8, -24, -4, -3, -3, -4, -24, -8,
 	99,  -8,  8,  6,  6,  8,  -8, 99 };
+
 	
-	public int chooseMove() {
+	public int chooseMove(){
+		return othello.getPossibleMoves().get(0);
+	}
+	
+	
+	/*public int chooseMove() {
 		Best best = chooseMove(othello.getActivePlayer());
 		return best.pos;
 		// return 0;
@@ -82,5 +88,5 @@ public class OthelloAI {
 			val = v;
 			pos = p;
 		}
-	}
+	}*/
 }

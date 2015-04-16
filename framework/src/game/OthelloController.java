@@ -23,6 +23,7 @@ public class OthelloController extends BoardController {
 		super(8, 8, "Othello", connection);
 		this.player = player;
 		model = new Othello(player);
+		model.addActionListener(this);
 		board = new OthelloBoard(this);
 		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
 		for (Entry<Integer, ArrayList<Integer>> entry : model.possibleMoves(
@@ -38,6 +39,15 @@ public class OthelloController extends BoardController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof Othello){
+			board.updateBoard(model.getBoard());
+			timeView.reset();
+			try {
+				connection.sendCommand("MOVE " + Integer.parseInt(e.getActionCommand()));
+			} catch (ServerErrorException e1) {
+				e1.printStackTrace();
+			}
+		} else {
 		OthelloBoard board1 = (OthelloBoard) board;
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
@@ -53,6 +63,7 @@ public class OthelloController extends BoardController {
 			} else
 				JOptionPane.showMessageDialog(board, "Illegal move");
 		} else JOptionPane.showMessageDialog(board, "Not your turn");
+		}
 	}
 	
 

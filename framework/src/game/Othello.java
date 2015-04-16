@@ -30,7 +30,6 @@ public class Othello extends BoardModel{
 
 	@Override
 	public boolean playMove(int move) {
-		if(getActivePlayer() ==  side){
 			if (isValidMove(move)){
 				flipTiles(getTilesToFlip(move));
 				board[move] = side;
@@ -40,9 +39,6 @@ public class Othello extends BoardModel{
 			} else {
 				return false;
 			}
-		} else {
-			return false;
-		}
 	}
 	
 	public void flipTiles(ArrayList<Integer> tilesToFlip){
@@ -121,20 +117,31 @@ public class Othello extends BoardModel{
 		int posSide = player;
 		ArrayList<Integer> moves = possiblemoves;
 		HashMap<Integer , ArrayList<Integer>> flippableMoves = new HashMap<Integer, ArrayList<Integer>>();
+		
+		//Wanneer er al een steen is gecontrolleer en de steen is niet de zelfde als de initieele steen doe dit:
 		if (first == false && board[possition] == getOpponent(posSide) ) {
+			flippableMoves.put(possition, moves);
 			return null;
+		//Wanneer de possitie leeg is en er al iets in de moves array zit doe dit:
 		} else if (board[possition] == EMPTY && moves.size() > 0) {
+			// stop conditie: 
+			// hij voegt de flippable moves toe met een positie er bij
 			flippableMoves.put(possition, moves);
 			return flippableMoves;
+		// Wanneer het de eerste steen is die recursief gecontroleerd wordt flip de side om
 		} else if (first) {
 			posSide = getOpponent(posSide);
 		}
+		// Als de possitie binnen het veld ligt 
 		if((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0){
-			if(board[possition] == posSide){
+			//als de possitie gelijk is aan die is meegegeven (hij is dus veranderd als dit niet de eerste recursie is)
+			if(board[possition] == posSide && board[possition] != EMPTY){
+				//als de move nog niet in de moves array voeg m toe.
 				if(!moves.contains(possition)){
 					moves.add(possition);
 				}
 			}
+			// daarna check volgende positie.
 			return findPossibleMoves(possition + stappen, stappen, moves, posSide, false);
 		}
 		return null;
@@ -291,6 +298,7 @@ public class Othello extends BoardModel{
 		if(player.isAI() && isMyTurn()){
 			OthelloAI ai = new OthelloAI(this);
 			int move = ai.chooseMove();
+			System.out.println("Sent move" + move);
 			playMove(move);
 			processAction(move);
 			

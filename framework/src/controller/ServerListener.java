@@ -73,6 +73,7 @@ public class ServerListener implements Runnable{
                 		cgcontroller.createGame("ttt");
                 		cgcontroller.getView().disableQueueText();
                 		if(parseString(lastLine).get(0).equals(player.getName())){
+                			activeGame.getModel().setActivePlayer(false);
                 			activeGameView.setSide(true);
                 			
                 		} else {
@@ -83,8 +84,10 @@ public class ServerListener implements Runnable{
                 		cgcontroller.createGame(parseString(lastLine).get(1));
                 		cgcontroller.getView().disableQueueText();
                 		if(parseString(lastLine).get(0).equals(player.getName())){
+                			activeGame.getModel().setActivePlayer(false);
                 			activeGameView.setSide(true);
                 		} else {
+                			activeGame.getModel().setActivePlayer(false);
                 			activeGameView.setSide(false);
                 		}
                 	}
