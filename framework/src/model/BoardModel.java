@@ -1,7 +1,9 @@
 package model;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public abstract class BoardModel {
@@ -17,7 +19,8 @@ public abstract class BoardModel {
 	
 	protected int[] board;
 	public int side;
-	private boolean myTurn = false;
+	protected boolean myTurn = false;
+    protected LinkedList<ActionListener> listeners = new LinkedList<ActionListener>();
 	
 	protected Player player1;
 	protected Player player2;
@@ -57,7 +60,6 @@ public abstract class BoardModel {
 
 	public void setActivePlayer(boolean b) {
 		this.myTurn = b;
-		
 	}
 
 	public boolean isMyTurn() {
@@ -70,6 +72,13 @@ public abstract class BoardModel {
 		return board;
 	}
 	
+
+    
+    public void addActionListener(ActionListener listener){
+    	listeners.add(listener);
+    }
+    
+    protected abstract void processAction(int move);
 	
 }
 

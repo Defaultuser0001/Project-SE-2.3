@@ -22,7 +22,7 @@ public class OthelloController extends BoardController {
 	public OthelloController(ServerConnection connection, Player player) {
 		super(8, 8, "Othello", connection);
 		this.player = player;
-		model = new Othello();
+		model = new Othello(player);
 		board = new OthelloBoard(this);
 		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
 		for (Entry<Integer, ArrayList<Integer>> entry : model.possibleMoves(

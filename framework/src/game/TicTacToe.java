@@ -1,5 +1,9 @@
 package game;
 
+import exceptions.ServerErrorException;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,15 +11,19 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import model.BoardModel;
+import model.Player;
 
 /**
  * Created by Gerard on 4/7/2015.
  */
 public class TicTacToe extends BoardModel {
 
-	public TicTacToe() {
+	private Player player;
+	
+	public TicTacToe(Player player) {
 		super(3, 3);
 		side = PLAYER1;
+		this.player = player;
 	}
 	@Override
 	public boolean playMove(int move) {
@@ -41,16 +49,13 @@ public class TicTacToe extends BoardModel {
 	public int isAWin() {
 		ArrayList<Integer> client = new ArrayList<Integer>();
 		ArrayList<Integer> opponent = new ArrayList<Integer>();
-
+		final int YOU = getActivePlayer();
+		final int OPP = getOpponent(YOU);
 		for (int i = 0; i < 9; i++) {
-			switch (board[i]) {
-			case PLAYER1:
+			if(board[i]==YOU)
 				client.add(i);
-				break;
-			case PLAYER2:
+			else if(board[i]==OPP)
 				opponent.add(i);
-				break;
-			}
 		}
 
 		if (hasWon(client))
@@ -62,6 +67,13 @@ public class TicTacToe extends BoardModel {
 		return UNCLEAR;
 	}
 
+	public int getOpponent(int side){
+		if(side == PLAYER1) {
+			return PLAYER2;
+		} else {
+			return PLAYER1;
+		}
+	}
 	/**
 	 * Checks wether the board is full
 	 * 
@@ -116,10 +128,28 @@ public class TicTacToe extends BoardModel {
 	public HashMap<Integer, ArrayList<Integer>> possibleMoves(int side) {
 		return null;
 	}
+	
 	public void playEmpty(int i) {
 		board[i] = EMPTY;
 		flipSide();
 	}
 	
+	@Override
+	public void setActivePlayer(boolean b) {
+		this.myTurn = b;
+		if(player.isAI() && isMyTurn()){
+			TicTacToeAI ai = new TicTacToeAI(this);
+			int move = ai.chooseMove();
+			playMove(move);
+			processAction(move);
+			
+		}
+	}
+	@Override
+	protected void processAction(int move) {
+		for(ActionListener listener : listeners){
+			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Integer.toString(move)));
+		}
+	}
 	
 }

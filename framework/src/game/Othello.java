@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -13,9 +15,11 @@ import model.Player;
 public class Othello extends BoardModel{
 	
 	private ArrayList<Integer> possibleMoves;
+	private Player player;
 	
-	public Othello() {
+	public Othello(Player player) {
 		super(8, 8);
+		this.player = player;
 		board[27] = PLAYER2;
 		board[28] = PLAYER1;
 		board[35] = PLAYER1;
@@ -136,7 +140,7 @@ public class Othello extends BoardModel{
 		return null;
 	}
 	
-	private int getOpponent(int side){
+	public int getOpponent(int side){
 		if(side == PLAYER1) {
 			return PLAYER2;
 		} else {
@@ -274,5 +278,28 @@ public class Othello extends BoardModel{
 			possibleMoves.add(entry.getKey());
 		}
 		return possibleMoves;
+	}
+	
+	public void playEmpty(int i) {
+		board[i] = EMPTY;
+		flipSide();
+	}
+	
+	@Override
+	public void setActivePlayer(boolean b) {
+		this.myTurn = b;
+		if(player.isAI() && isMyTurn()){
+			OthelloAI ai = new OthelloAI(this);
+			int move = ai.chooseMove();
+			playMove(move);
+			processAction(move);
+			
+		}
+	}
+	@Override
+	protected void processAction(int move) {
+		for(ActionListener listener : listeners){
+			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Integer.toString(move)));
+		}
 	}
 }

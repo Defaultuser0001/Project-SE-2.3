@@ -3,6 +3,7 @@ package game;
 
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
@@ -25,7 +26,8 @@ public class TicTacToeController extends BoardController{
 	public TicTacToeController(ServerConnection connection, Player player) {
 		super(3, 3, "TicTacToe", connection);
 		this.player = player;
-		model = new TicTacToe();
+		model = new TicTacToe(player);
+		model.addActionListener(this);
 		board = new TicTacToeBoard(this);
 	}
 
@@ -38,6 +40,15 @@ public class TicTacToeController extends BoardController{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof TicTacToe){
+			board.updateBoard(model.getBoard());
+			timeView.reset();
+			try {
+				connection.sendCommand("MOVE " + Integer.parseInt(e.getActionCommand()));
+			} catch (ServerErrorException e1) {
+				e1.printStackTrace();
+			}
+		} else {
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
 		if(model.isMyTurn()){
@@ -53,6 +64,7 @@ public class TicTacToeController extends BoardController{
 			}
 			else JOptionPane.showMessageDialog(board, "Illegal move");
 		} else JOptionPane.showMessageDialog(board, "Not your turn");
+		}
 		/*
 		 * Following code within comments is for testing the win/loss/draw check
 		 * 
@@ -72,18 +84,6 @@ public class TicTacToeController extends BoardController{
 		model.playMove(move);
 		board.updateBoard(model.getBoard());
 		timeView.reset();
-		if(player.isAI()){
-			TicTacToeAI ai = new TicTacToeAI((TicTacToe) model);
-			move = ai.chooseMove();
-			model.playMove(move);
-			board.updateBoard(model.getBoard());
-			timeView.reset();
-			try {
-				connection.sendCommand("MOVE " + move);
-			} catch (ServerErrorException e1) {
-				e1.printStackTrace();
-			}
-		}
 	}
 
 }
