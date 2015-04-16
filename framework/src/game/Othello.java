@@ -28,6 +28,7 @@ public class Othello extends BoardModel{
 	public boolean playMove(int move) {
 		if(getActivePlayer() ==  side){
 			if (isValidMove(move)){
+				flipTiles(getTilesToFlip(move));
 				board[move] = side;
 				flipSide();
 				return true;
@@ -36,6 +37,14 @@ public class Othello extends BoardModel{
 			}
 		} else {
 			return false;
+		}
+	}
+	
+	public void flipTiles(ArrayList<Integer> tilesToFlip){
+		for (Integer integer : tilesToFlip) {
+			if(board[integer] == getOpponent(getActivePlayer())){
+				board[integer] = getActivePlayer();
+			}
 		}
 	}
 
@@ -251,7 +260,9 @@ public class Othello extends BoardModel{
 	public ArrayList<Integer> getTilesToFlip(int move){
 		ArrayList<Integer> tilesToFlip = new ArrayList<Integer>();
 		HashMap<Integer , ArrayList<Integer>> possiblemoves = possibleMoves(getActivePlayer());
-		tilesToFlip = possiblemoves.get(move);
+		if(possiblemoves.get(move) != null)
+			tilesToFlip = possiblemoves.get(move);
+		
 		return tilesToFlip;
 	}
 	

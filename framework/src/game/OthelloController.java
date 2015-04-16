@@ -40,7 +40,7 @@ public class OthelloController extends BoardController {
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
 		if (model.playMove(move)) {
-			board1.updateBoard(model.getBoard());;
+			board1.updateBoard(model.getBoard());
 			try {
 				connection.sendCommand("MOVE " + move);
 				
@@ -55,10 +55,4 @@ public class OthelloController extends BoardController {
 		board1.hilightMoves(model1.getPossibleMoves());
 	}
 
-	public void flipTiles(int move) {
-		ArrayList<Integer> flips = new ArrayList<Integer>();
-		for (Entry<Integer, ArrayList<Integer>> entry : model.possibleMoves(model.getActivePlayer()).entrySet()) {
-			System.out.println(entry.getKey());
-		}
-	}
 }
