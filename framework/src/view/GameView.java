@@ -27,7 +27,7 @@ public abstract class GameView extends JFrame {
 	private JLabel side;
 
 	public GameView(final JFrame parent, JPanel board, BoardController controller, final ServerConnection connection) {
-		super();
+		super(connection.getPlayerName());
 		this.controller = controller;
 		setLayout(new BorderLayout());
 		side = new JLabel("Your side:");
@@ -35,6 +35,7 @@ public abstract class GameView extends JFrame {
 		label = new JLabel("");
 		label.setPreferredSize(new Dimension(100,30));
 		add(label, BorderLayout.NORTH);
+		add(side, BorderLayout.WEST);
 		add(board, BorderLayout.CENTER);
 		add(controller.getTimeView(), BorderLayout.SOUTH);
 		setVisible(true);
@@ -69,9 +70,9 @@ public abstract class GameView extends JFrame {
 			}
 		} else {
 			if(checker){
-				side.setIcon(white);
-			} else {
 				side.setIcon(black);
+			} else {
+				side.setIcon(white);
 			}
 		}
 	}

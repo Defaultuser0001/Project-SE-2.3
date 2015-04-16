@@ -84,9 +84,9 @@ public class OthelloBoard extends GameBoard{
 	 */
 	public void makeMove(int player, int move) {
 		if (player == PLAYER1){
-			tiles.get(move).setWhite();
-		} else {
 			tiles.get(move).setBlack();
+		} else {
+			tiles.get(move).setWhite();
 		}
 	}
 	

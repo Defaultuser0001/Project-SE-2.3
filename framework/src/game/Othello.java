@@ -18,6 +18,8 @@ public class Othello extends BoardModel{
 		board[28] = PLAYER2;
 		board[35] = PLAYER2;
 		board[36] = PLAYER1;
+		flipSide();
+		flipSide();
 	}
 
 	@Override
