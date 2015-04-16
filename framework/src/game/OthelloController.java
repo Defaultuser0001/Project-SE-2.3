@@ -39,7 +39,7 @@ public class OthelloController extends BoardController {
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
 		if (model.playMove(move)) {
-			board.makeMove(model.getActivePlayer(), move);
+			board1.updateBoard(model.getBoard());;
 			try {
 				connection.sendCommand("MOVE " + move);
 				

@@ -12,23 +12,31 @@ import model.Player;
  */
 public class Othello extends BoardModel{
 	
+	private ArrayList<Integer> possibleMoves;
+	
 	public Othello() {
 		super(8, 8);
-		board[27] = PLAYER1;
-		board[28] = PLAYER2;
-		board[35] = PLAYER2;
-		board[36] = PLAYER1;
-		flipSide();
-		flipSide();
+		board[27] = PLAYER2;
+		board[28] = PLAYER1;
+		board[35] = PLAYER1;
+		board[36] = PLAYER2;
+		side = PLAYER1;
+		
 	}
 
 	@Override
 	public boolean playMove(int move) {
-		if (isValidMove(move)){
-			board[move] = side;
-			flipSide();
-			return true;
-		} else return false;
+		if(getActivePlayer() ==  side){
+			if (isValidMove(move)){
+				board[move] = side;
+				flipSide();
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override

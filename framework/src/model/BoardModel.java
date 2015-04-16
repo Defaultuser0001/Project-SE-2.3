@@ -45,6 +45,12 @@ public abstract class BoardModel {
 	}
 	
 	protected void flipSide() {
+		for (int i = 0; i < board.length; i++) {
+			if(i%8 == 0){
+				System.out.println("");
+			}
+			System.out.print(board[i]);
+		}
 		if (side == PLAYER1) side = PLAYER2;
 		else side = PLAYER1;
 	}
@@ -59,5 +65,11 @@ public abstract class BoardModel {
 	}
 
 	public abstract HashMap<Integer, ArrayList<Integer>> possibleMoves(int side);
+
+	public int[] getBoard() {
+		return board;
+	}
+	
+	
 }
 

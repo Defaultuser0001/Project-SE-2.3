@@ -72,7 +72,6 @@ public class OthelloBoard extends GameBoard{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Tile tile = (Tile) e.getSource();
-		
 		processAction(tile.getMove());
 	}
 	
@@ -85,8 +84,14 @@ public class OthelloBoard extends GameBoard{
 	public void makeMove(int player, int move) {
 		if (player == PLAYER1){
 			tiles.get(move).setBlack();
-		} else {
+		} else if (player == PLAYER2){
 			tiles.get(move).setWhite();
+		}
+	}
+	
+	public void updateBoard(int[] board){
+		for (int i = 0; i < board.length; i++) {
+			makeMove(board[i], i);
 		}
 	}
 	
