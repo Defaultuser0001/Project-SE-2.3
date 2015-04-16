@@ -3,22 +3,28 @@ package game;
 
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
 import javax.swing.JOptionPane;
 
+import model.Player;
 import tools.ServerConnection;
-
 import controller.BoardController;
 import exceptions.ServerErrorException;
 
 public class TicTacToeController extends BoardController{
+
+	private Player player;
 
 	/**
 	 * Constructor
 	 * 
 	 * Creates new instances of both the model and view required for a game of tic-tac-toe
 	 */
-	public TicTacToeController(ServerConnection connection) {
+	public TicTacToeController(ServerConnection connection, Player player) {
 		super(3, 3, "TicTacToe", connection);
+		this.player = player;
 		model = new TicTacToe();
 		board = new TicTacToeBoard(this);
 	}
@@ -59,6 +65,25 @@ public class TicTacToeController extends BoardController{
 			break;
 		}
 		*/
+	}
+	
+	@Override
+	public void playMove(int move) {
+		model.playMove(move);
+		board.updateBoard(model.getBoard());
+		timeView.reset();
+		if(player.isAI()){
+			TicTacToeAI ai = new TicTacToeAI((TicTacToe) model);
+			move = ai.chooseMove();
+			model.playMove(move);
+			board.updateBoard(model.getBoard());
+			timeView.reset();
+			try {
+				connection.sendCommand("MOVE " + move);
+			} catch (ServerErrorException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 
 }

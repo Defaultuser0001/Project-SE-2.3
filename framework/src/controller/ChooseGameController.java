@@ -13,6 +13,8 @@ import view.GameView;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import model.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,13 +29,15 @@ public class ChooseGameController extends JPanel {
 	private ServerListener server;
 	private JRadioButton othelloButton;
 	private JRadioButton tttButton;
+	private Player player;
 
 	private enum GameTypes {
 		REVERSI, TTT
 	}
 
 	public ChooseGameController(final ServerConnection connection,
-			final ChooseGameView view, final ServerListener server) {
+			final ChooseGameView view, final ServerListener server, Player player) {
+		this.player = player;
 		this.view = view;
 		this.connection = connection;
 		this.server = server;
@@ -87,6 +91,7 @@ public class ChooseGameController extends JPanel {
 				JToggleButton pVSP = (JToggleButton) e.getSource();
 				if (pVSP.isSelected()) {
 					pVSAi.setSelected(false);
+					player.setAI(false);
 				}
 			}
 		});
@@ -95,6 +100,7 @@ public class ChooseGameController extends JPanel {
 				JToggleButton pVSAi = (JToggleButton) e.getSource();
 				if (pVSAi.isSelected()) {
 					pVSP.setSelected(false);
+					player.setAI(true);
 				}
 			}
 		});
@@ -135,8 +141,7 @@ public class ChooseGameController extends JPanel {
 		GameTypes type = GameTypes.valueOf(gametype.toUpperCase());
 		switch (type) {
 		case REVERSI:
-			OthelloController othelloController = new OthelloController(
-					connection);
+			OthelloController othelloController = new OthelloController(connection,player);
 			OthelloGameView othelloView = new OthelloGameView(view,
 					othelloController.getBoard(), othelloController, connection);
 			server.setActiveGame(othelloController, othelloView);
@@ -144,7 +149,7 @@ public class ChooseGameController extends JPanel {
 			break;
 		case TTT:
 			TicTacToeController tttController = new TicTacToeController(
-					connection);
+					connection, player);
 			TicTacToeGameView tttGameView = new TicTacToeGameView(view,
 					tttController.getBoard(), tttController, connection);
 			server.setActiveGame(tttController, tttGameView);

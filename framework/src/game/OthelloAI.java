@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 
 public class OthelloAI {
-
-	private Rules rules;
 	
 	private static final int HUMAN        = 0; 
 	private static final int COMPUTER     = 1; 
@@ -16,6 +14,12 @@ public class OthelloAI {
 	public  static final int DRAW         = 1;
 	public  static final int UNCLEAR      = 2;
 	public  static final int COMPUTER_WIN = 3;
+	
+	private Othello othello;
+	
+	public OthelloAI(Othello othello){
+		this.othello = othello;
+	}
 
 	private int[] positionStrategy = {
 	99,  -8,  8,  6,  6,  8, -8,  99,
@@ -27,73 +31,58 @@ public class OthelloAI {
 	-8, -24, -4, -3, -3, -4, -24, -8,
 	99,  -8,  8,  6,  6,  8,  -8, 99 };
 	
-	public int chooseMove()
-	{
-	    Best best=chooseMove(COMPUTER);
-	    return best.row*3+best.column;
-	    //return 0;
-    }
-	
+	public int chooseMove() {
+		Best best = chooseMove(COMPUTER);
+		return best.pos;
+		// return 0;
+	}
+
 	// Find optimal move
-		private Best chooseMove( int side )
-		{
-			int opp;              // The other side
-			Best reply;           // Opponent's best reply
-			int simpleEval;       // Result of an immediate evaluation
-			int bestRow = 0;
-			int bestColumn = 0;
-			int value;
+	private Best chooseMove(int side) {
+		int opp; // The other side
+		Best reply; // Opponent's best reply
+		int simpleEval; // Result of an immediate evaluation
+		int bestMove;
+		int value;
 
-			if( ( simpleEval = positionValue( ) ) != UNCLEAR )
-				return new Best( simpleEval );
+		if ((simpleEval = positionValue()) != UNCLEAR)
+			return new Best(simpleEval);
 
-			if (side == HUMAN) opp = COMPUTER;
-			else opp = HUMAN;
-			
+		if (side == HUMAN)
+			opp = COMPUTER;
+		else
+			opp = HUMAN;
 
-			// TODO: implementeren m.b.v. recursie/backtracking
-			
-			
-			int i = 0;
-			while (!squareIsEmpty(i/3, i%3)){
-				i++;
-			}
-			
-			place(i/3, i%3, side);
+		// TODO: implementeren m.b.v. recursie/backtracking
+		
+		
+		for (Integer move : othello.getPossibleMoves()) {
+			othello.playMove(move);
 			reply = chooseMove(opp);
-			value = reply.val;
-			bestRow = i/3;
-			bestColumn = i%3;
-			place(i/3, i%3, EMPTY);
-			i++;
-			
-			while (i < 9){
-				if (squareIsEmpty(i/3, i%3)){
-					place(i/3, i%3, side);
-					reply = chooseMove(opp);
-					if((value < reply.val && side == COMPUTER) || (value > reply.val && side == HUMAN)){
-						value = reply.val;
-						bestRow = i/3;
-						bestColumn = i%3;
-					}
-					place(i/3, i%3, EMPTY);
-				}
-				i++;
+			if ((value < reply.val && side == COMPUTER)
+					|| (value > reply.val && side == HUMAN)) {
+				value = reply.val;
+				bestMove = move;
 			}
-			
-			return new Best(value, bestRow, bestColumn);
-	
-			class Best
-		    {
-		       int row;
-		       int column;
-		       int val;
+			othello.playMove(move);//empty
+		}
+		
 
-		       public Best( int v )
-		         { this( v, 0, 0 ); }
-		      
-		       public Best( int v, int r, int c )
-		        { val = v; row = r; column = c; }
-		    } 
-	
-}}
+		return new Best(value, bestMove);
+
+	}
+
+	class Best {
+		int pos;
+		int val;
+
+		public Best(int v) {
+			this(v, 0);
+		}
+
+		public Best(int v, int p) {
+			val = v;
+			pos = p;
+		}
+	}
+}

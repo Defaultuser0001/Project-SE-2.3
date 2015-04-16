@@ -34,4 +34,6 @@ public abstract class GameBoard extends JPanel implements ActionListener{
     
     public abstract void makeMove(int player, int move);
 
+	public abstract void updateBoard(int[] board);
+
 }

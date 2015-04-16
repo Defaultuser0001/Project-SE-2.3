@@ -2,7 +2,6 @@ package view;
 
 import controller.ChooseGameController;
 import controller.ServerListener;
-import model.Human;
 import model.Player;
 import tools.ServerConnection;
 
@@ -16,7 +15,7 @@ public class ChooseGameView extends JFrame{
 	
 	private JLabel queue;
 
-    public ChooseGameView(Human player, ServerConnection connection, ServerListener server){
+    public ChooseGameView(Player player, ServerConnection connection, ServerListener server){
         super("Logged in as: " + player.getName());
         
         JLabel text = new JLabel("Choose your game mode");
@@ -25,7 +24,7 @@ public class ChooseGameView extends JFrame{
 
         this.add(text, BorderLayout.NORTH);
 
-        this.add(new ChooseGameController(connection,this, server), BorderLayout.CENTER);
+        this.add(new ChooseGameController(connection,this, server,player), BorderLayout.CENTER);
         
         queue = new JLabel("");
         

@@ -15,8 +15,8 @@ public class TicTacToe extends BoardModel {
 
 	public TicTacToe() {
 		super(3, 3);
+		side = PLAYER1;
 	}
-
 	@Override
 	public boolean playMove(int move) {
 		if (getActivePlayer() == side) {
@@ -115,6 +115,10 @@ public class TicTacToe extends BoardModel {
 	@Override
 	public HashMap<Integer, ArrayList<Integer>> possibleMoves(int side) {
 		return null;
+	}
+	public void playEmpty(int i) {
+		board[i] = EMPTY;
+		flipSide();
 	}
 	
 	

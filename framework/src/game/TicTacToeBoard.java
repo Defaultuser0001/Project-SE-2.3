@@ -75,9 +75,9 @@ public class TicTacToeBoard extends GameBoard{
 	 */
 	public void makeMove(int player, int move) {
 		if (player == PLAYER1){
-			tiles.get(move).setWhite();
-		} else {
 			tiles.get(move).setBlack();
+		} else if (player == PLAYER2){
+			tiles.get(move).setWhite();
 		}
 	}
 
@@ -111,6 +111,13 @@ public class TicTacToeBoard extends GameBoard{
 			return move;
 		}
 		
+	}
+
+	@Override
+	public void updateBoard(int[] board) {
+		for (int i = 0; i < board.length; i++) {
+			makeMove(board[i], i);
+		}
 	}
 
 }

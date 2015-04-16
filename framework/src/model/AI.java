@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class AI {
 
-	private Rules rules;
 	private static final int HUMAN        = 0; 
 	private static final int COMPUTER     = 1; 
 	public  static final int EMPTY        = 2;

@@ -2,7 +2,6 @@ package controller;
 
 import exceptions.ServerErrorException;
 import game.TicTacToeController;
-import model.Human;
 import model.Player;
 import tools.ServerConnection;
 import view.ChooseGameView;
@@ -58,10 +57,10 @@ public class ServerListener implements Runnable{
                  * Log in
                  */
                 if (connection.getLastCommand().equals("login") && lastLine.equals("OK")) {
-                    player = new Human(view.getLogin().getUsername());
+                    player = new Player(view.getLogin().getUsername());
                     view.setVisible(false);
                     view.dispose();
-                    ChooseGameView gameView = new ChooseGameView((Human)player, connection, this);
+                    ChooseGameView gameView = new ChooseGameView(player, connection, this);
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Duplicate name exists")) {
                     throw new ServerErrorException("Username already in use!");
                 } else if (connection.getLastCommand().equals("login") && lastLine.equals("ERR Already logged in")){

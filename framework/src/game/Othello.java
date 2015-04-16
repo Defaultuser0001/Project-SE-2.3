@@ -31,6 +31,7 @@ public class Othello extends BoardModel{
 				flipTiles(getTilesToFlip(move));
 				board[move] = side;
 				flipSide();
+				
 				return true;
 			} else {
 				return false;
@@ -69,10 +70,11 @@ public class Othello extends BoardModel{
 				break;
 			}
 		}
-		
+		if (boardIsFull()){
 		if (hasWon(client)) return WIN;
 		if (hasWon(opponent)) return LOSS;
-		//if (boardIsFull()) return DRAW;
+		return DRAW;
+		}
 		return UNCLEAR;
 		/*
 		 * vgm is -1 een pas sturen, kijk of er nog zetten mogelijk zijn, kijk of de lijst met mogelijke zetten leeg is, 

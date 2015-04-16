@@ -46,8 +46,8 @@ public abstract class BoardController implements ActionListener{
 	}
 	
 	public void playMove(int move) {
-		board.makeMove(model.getActivePlayer(), move);
 		model.playMove(move);
+		board.updateBoard(model.getBoard());
 		timeView.reset();
 	}
 	
