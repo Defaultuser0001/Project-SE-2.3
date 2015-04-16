@@ -35,6 +35,7 @@ public class OthelloController extends BoardController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		OthelloBoard board1 = (OthelloBoard) board;
+		Othello model1 = (Othello) model;
 		board1.resetBoardBg();
 		int player = model.getActivePlayer();
 		int move = Integer.parseInt(e.getActionCommand());
@@ -48,12 +49,10 @@ public class OthelloController extends BoardController {
 			}
 		} else
 			JOptionPane.showMessageDialog(board, "Illegal move");
-		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
-		for (Entry<Integer, ArrayList<Integer>> entry : model.possibleMoves(
-				model.getActivePlayer()).entrySet()) {
-			possibleMoves.add(entry.getKey());
+		for (Integer i : model1.getTilesToFlip(model1.getPossibleMoves().get(0))) {
+			System.out.println(i);
 		}
-		board1.hilightMoves(possibleMoves);
+		board1.hilightMoves(model1.getPossibleMoves());
 	}
 
 	public void flipTiles(int move) {

@@ -41,13 +41,7 @@ public class Othello extends BoardModel{
 
 	@Override
 	protected boolean isValidMove(int move) {
-		for (Entry<Integer, ArrayList<Integer>> entry : possibleMoves(getActivePlayer()).entrySet())
-		{
-		  if(entry.getValue() != null && entry.getKey() == move){
-			  return true;
-		  }
-		}
-		return false;
+		return getPossibleMoves().contains(move);
 	}
 
 	@Override
@@ -253,5 +247,19 @@ public class Othello extends BoardModel{
 			count++;
 		}
 		return possiblemoves;
+	}
+	public ArrayList<Integer> getTilesToFlip(int move){
+		ArrayList<Integer> tilesToFlip = new ArrayList<Integer>();
+		HashMap<Integer , ArrayList<Integer>> possiblemoves = possibleMoves(getActivePlayer());
+		tilesToFlip = possiblemoves.get(move);
+		return tilesToFlip;
+	}
+	
+	public ArrayList<Integer> getPossibleMoves(){
+		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+		for (Entry<Integer, ArrayList<Integer>> entry : possibleMoves(getActivePlayer()).entrySet()) {
+			possibleMoves.add(entry.getKey());
+		}
+		return possibleMoves;
 	}
 }
