@@ -122,6 +122,7 @@ public class Othello extends BoardModel{
 			return findPossibleMoves(possition + stappen, stappen, moves, posSide, 2);
 		}
 		
+		if (possition >= 0 && possition < 64){
 		if (first == 2 && board[possition] == EMPTY) {
 			return null;
 		} 
@@ -131,7 +132,8 @@ public class Othello extends BoardModel{
 			flippableMoves.put(possition, moves);
 			return flippableMoves;
 		}
-		if((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0){
+		if(((possition / 8) >= 0 && (possition / 8) <= 7 && (possition % 8) <= 7 && (possition % 8) >= 0 && stappen % 8 == 0) 
+				|| ((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0)){
 			//als de possitie gelijk is aan die is meegegeven (hij is dus veranderd als dit niet de eerste recursie is)
 			if(board[possition] == getOpponent(posSide)){
 				//als de move nog niet in de moves array voeg m toe.
@@ -142,6 +144,7 @@ public class Othello extends BoardModel{
 			// daarna check volgende positie.
 			first++;
 			return findPossibleMoves(possition + stappen, stappen, moves, posSide, first);
+		}
 		}
 		/*
 		//Wanneer er al een steen is gecontrolleer en de steen is niet de zelfde als de initieele steen doe dit:
