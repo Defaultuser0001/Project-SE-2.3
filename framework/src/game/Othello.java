@@ -108,6 +108,16 @@ public class Othello extends BoardModel{
 		}return false;
 	}
 	
+	public int getPossessedTiles(int player){
+		int tiles = 0;
+		for(Integer i : board){
+			if(board[i] == player){
+				tiles++;
+			}
+		}
+		return tiles;
+	}
+	
 	public boolean hasWon(ArrayList<Integer> player){
 		
 		return false;	
@@ -329,6 +339,12 @@ public class Othello extends BoardModel{
 			OthelloAI ai = new OthelloAI(this);
 			int move = ai.chooseMove();
 			System.out.println("Sent move" + move);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			playMove(move);
 			processAction(move);
 			

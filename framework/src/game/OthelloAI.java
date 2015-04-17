@@ -35,11 +35,31 @@ public class OthelloAI {
 
 	
 	public int chooseMove(){
-		return othello.getPossibleMoves().get(0);
+		/*if(othello.getPossessedTiles() > 56){
+			return miniMax();
+		}*/
+		return getBestValueTile();
+	}
+	
+	public int getBestValueTile(){
+		ArrayList<Integer> moves = othello.getPossibleMoves();
+		int max = -100;
+		
+		int bestMove = -1;
+		if(moves == null)
+			return -1;
+		System.out.println("STRATEGY ID: "+positionStrategy[moves.get(0)]);
+		for(Integer i : moves){
+			if(max < positionStrategy[i]){
+				max = positionStrategy[i];
+				bestMove = i;
+			}
+		}
+		return bestMove;
 	}
 	
 	
-	/*public int chooseMove() {
+	public int miniMax() {
 		Best best = chooseMove(othello.getActivePlayer());
 		return best.pos;
 		// return 0;
@@ -88,5 +108,5 @@ public class OthelloAI {
 			val = v;
 			pos = p;
 		}
-	}*/
+	}
 }
