@@ -133,7 +133,8 @@ public class Othello extends BoardModel{
 			return flippableMoves;
 		}
 		if(((possition / 8) >= 0 && (possition / 8) <= 7 && (possition % 8) <= 7 && (possition % 8) >= 0 && stappen % 8 == 0) 
-				|| ((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0)){
+				|| ((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0)
+				|| ((possition / 8 == 7 || possition / 8 == 0) && (possition % 8) <= 7 && (possition % 8) >= 0 && (stappen == 1 || stappen == -1))){
 			//als de possitie gelijk is aan die is meegegeven (hij is dus veranderd als dit niet de eerste recursie is)
 			if(board[possition] == getOpponent(posSide)){
 				//als de move nog niet in de moves array voeg m toe.
