@@ -113,14 +113,40 @@ public class Othello extends BoardModel{
 		return false;	
 	}
 	
-	private HashMap<Integer, ArrayList<Integer>> findPossibleMoves(int possition, int stappen , ArrayList<Integer> possiblemoves, int player, boolean first){
+	private HashMap<Integer, ArrayList<Integer>> findPossibleMoves(int possition, int stappen , ArrayList<Integer> possiblemoves, int player, int first){
 		int posSide = player;
 		ArrayList<Integer> moves = possiblemoves;
 		HashMap<Integer , ArrayList<Integer>> flippableMoves = new HashMap<Integer, ArrayList<Integer>>();
 		
+		if(first == 1) {
+			return findPossibleMoves(possition + stappen, stappen, moves, posSide, 2);
+		}
+		
+		if (first == 2 && board[possition] == EMPTY) {
+			return null;
+		} 
+		if (board[possition] == EMPTY && moves.size() > 0) {
+			// stop conditie: 
+			// hij voegt de flippable moves toe met een positie er bij
+			flippableMoves.put(possition, moves);
+			return flippableMoves;
+		}
+		if((possition / 8) > 0 && (possition / 8) < 7 && (possition % 8) < 7 && (possition % 8) > 0){
+			//als de possitie gelijk is aan die is meegegeven (hij is dus veranderd als dit niet de eerste recursie is)
+			if(board[possition] == getOpponent(posSide)){
+				//als de move nog niet in de moves array voeg m toe.
+				if(!moves.contains(possition)){
+					moves.add(possition);
+				}
+			} else return null;
+			// daarna check volgende positie.
+			first++;
+			return findPossibleMoves(possition + stappen, stappen, moves, posSide, first);
+		}
+		/*
 		//Wanneer er al een steen is gecontrolleer en de steen is niet de zelfde als de initieele steen doe dit:
 		if (first == false && board[possition] == getOpponent(posSide) ) {
-			flippableMoves.put(possition, moves);
+			//flippableMoves.put(possition, moves);
 			return null;
 		//Wanneer de possitie leeg is en er al iets in de moves array zit doe dit:
 		} else if (board[possition] == EMPTY && moves.size() > 0) {
@@ -143,7 +169,7 @@ public class Othello extends BoardModel{
 			}
 			// daarna check volgende positie.
 			return findPossibleMoves(possition + stappen, stappen, moves, posSide, false);
-		}
+		}*/
 		return null;
 	}
 	
@@ -161,7 +187,7 @@ public class Othello extends BoardModel{
 		int count = 0;
 		for(int i : board){
 			if(i == side){
-				temp = findPossibleMoves(count, -9, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, -9, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -174,7 +200,7 @@ public class Othello extends BoardModel{
 					}
 				}
 				
-				temp = findPossibleMoves(count, -8, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, -8, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -187,7 +213,7 @@ public class Othello extends BoardModel{
 					}
 				}
 				
-				temp = findPossibleMoves(count, -7, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, -7, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -200,7 +226,7 @@ public class Othello extends BoardModel{
 					}
 				}
 				
-				temp = findPossibleMoves(count, -1, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, -1, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -213,7 +239,7 @@ public class Othello extends BoardModel{
 					}
 				}
 				
-				temp = findPossibleMoves(count, 1, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, 1, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -226,7 +252,7 @@ public class Othello extends BoardModel{
 					}
 				}
 				
-				temp = findPossibleMoves(count, 7, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, 7, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -239,7 +265,7 @@ public class Othello extends BoardModel{
 					}
 				}
 				
-				temp = findPossibleMoves(count, 8, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, 8, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){
@@ -251,7 +277,7 @@ public class Othello extends BoardModel{
 						}
 					}
 				}
-				temp = findPossibleMoves(count, 9, new ArrayList<Integer>(), side, true);
+				temp = findPossibleMoves(count, 9, new ArrayList<Integer>(), side, 1);
 				if(temp != null){
 					for(Entry<Integer, ArrayList<Integer>> entry : temp.entrySet()){
 						if(possiblemoves.containsKey(entry.getKey())){

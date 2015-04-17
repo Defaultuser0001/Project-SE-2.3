@@ -36,7 +36,7 @@ public class ChooseGameController extends JPanel {
 	}
 
 	public ChooseGameController(final ServerConnection connection,
-			final ChooseGameView view, final ServerListener server, Player player) {
+			final ChooseGameView view, final ServerListener server, final Player player) {
 		this.player = player;
 		this.view = view;
 		this.connection = connection;
