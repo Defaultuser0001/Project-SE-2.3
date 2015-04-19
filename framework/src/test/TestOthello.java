@@ -14,8 +14,8 @@ public class TestOthello {
 		Othello o = new Othello(new Player("test"));
 		int[] result = {19, 37, 26, 44};
 		int i = 0;
-		for (Integer move : o.getPossibleMoves()) {
-			assertEquals((int)move, result[i]);
+		for (Integer move : result) {
+			assertTrue(o.getPossibleMoves().contains(move));
 			i++;
 		}
 	}
