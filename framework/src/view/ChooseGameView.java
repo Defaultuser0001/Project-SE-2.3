@@ -1,9 +1,9 @@
 package view;
 
 import controller.ChooseGameController;
-import controller.ServerListener;
 import model.Player;
 import tools.ServerConnection;
+import tools.ServerListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

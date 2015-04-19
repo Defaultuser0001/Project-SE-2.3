@@ -1,10 +1,11 @@
 package view;
 
 import controller.Login;
-import controller.ServerListener;
 import tools.ServerConnection;
+import tools.ServerListener;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.io.IOException;
 

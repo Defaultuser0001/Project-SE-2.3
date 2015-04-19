@@ -1,9 +1,8 @@
-package controller;
+package tools;
 
 import exceptions.ServerErrorException;
 import game.TicTacToeController;
 import model.Player;
-import tools.ServerConnection;
 import view.ChooseGameView;
 import view.GameView;
 import view.LoginView;
@@ -15,6 +14,9 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import controller.BoardController;
+import controller.ChooseGameController;
 
 
 

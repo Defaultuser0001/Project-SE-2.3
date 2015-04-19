@@ -7,6 +7,7 @@ import game.OthelloGameView;
 import game.TicTacToeController;
 import game.TicTacToeGameView;
 import tools.ServerConnection;
+import tools.ServerListener;
 import view.ChooseGameView;
 import view.GameView;
 

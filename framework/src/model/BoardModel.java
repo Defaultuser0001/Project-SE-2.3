@@ -72,7 +72,6 @@ public abstract class BoardModel {
 		return board;
 	}
 	
-
     
     public void addActionListener(ActionListener listener){
     	listeners.add(listener);
